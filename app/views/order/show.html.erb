@@ -1,0 +1,29 @@
+<%= link_to "All mirrors", mirrors_path %>
+
+<% @order_items.each do |order_item| %>
+
+<p> <%= order_item.mirror.name %> </p>
+<p> Size <%= order_item.mirror.height %> x <%= order_item.mirror.width %> </p>
+<p> <%= order_item.quantity %> </p>
+<p> <%= order_item.unit_price %> </p>
+<p> <%= order_item.total_price_item %> </p>
+
+<%= form_with model: order_item do |form| %>
+<p><%= form.hidden_field :mirror_id, value: order_item.mirror.id %> 
+<%= form.number_field :quantity, value: order_item.quantity %>
+<%= form.submit "Update", class: 'btn bg-success text-black' %></p>
+<%end%>
+
+
+
+<%= link_to "Destroy", order_item_path(order_item), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?" 
+                                      } %> 
+                                      
+
+<% end %>
+<p> <%= current_order.total_price %> </p>
+
+
+                                      

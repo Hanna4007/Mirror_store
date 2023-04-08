@@ -1,0 +1,56 @@
+<%= link_to "All mirrors", mirrors_path %>
+<h4>Edit</h4>
+
+<%= form_with model: @mirror do |form| %>
+  
+<p><%= form.label :name %> 
+<%= form.text_field :name %> </p>
+
+<p><%= form.label :height %> 
+<%= form.select :height, [50, 80, 100], {}, { onchange: 'this.form.submit();' }  %> 
+<%= form.submit type: :hidden %></p>
+
+<p><%= form.label :width %>
+<%= form.select :width, [50, 80], {}, { onchange: 'this.form.submit();' }  %> 
+<%= form.submit type: :hidden %></p>
+
+<p><%= form.label :glass_thickness %>
+<%= form.select :glass_thickness, [4, 6], {}, { onchange: 'this.form.submit();' } %>
+<%= form.submit type: :hidden %></p>
+
+<p><%= form.label :light %> 
+<%= form.select :light, [ 'warm', 'neutral', 'cold' ] %> 
+
+<p><%= form.label :heater %>
+<%= form.check_box :heater, { onchange: 'this.form.submit();' } %> 
+<%= form.submit type: :hidden %></p>
+
+
+<p><%= form.label :price %> 
+<%= form.text_field :price %> $ per square meter </p>
+
+
+<%= form.submit "Update", class: 'btn bg-success text-black' %>
+
+<% end %>
+
+<p>Price 
+<% if @mirror.height==50 %>
+<% @mirror.price=(@mirror.price*@mirror.height*@mirror.width*0.0001).round %>
+<% elsif @mirror.height==80 %>
+<% @mirror.price=(@mirror.price*@mirror.height*@mirror.width*0.0001*1.15).round %>
+<% else %>
+<% @mirror.price=(@mirror.price*@mirror.height*@mirror.width*0.0001*1.3).round %>
+<% end %>
+
+<% if @mirror.glass_thickness==6 %>
+<% @mirror.price=@mirror.price+635 %>
+<% else %>
+<% @mirror.price%>
+<% end %>
+
+<% if @mirror.heater==true %>
+<%= @mirror.price=@mirror.price+1110 %>
+<% else %>
+<%= @mirror.price%>
+<% end %> </p>

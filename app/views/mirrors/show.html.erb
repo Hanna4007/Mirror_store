@@ -1,0 +1,44 @@
+<%= link_to "All mirrors", mirrors_path %>
+
+<%= link_to "Edit", edit_mirror_path(@mirror) %>
+
+<%= link_to "Destroy", mirror_path(@mirror), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?" 
+                                      } %>
+<p> <%= @mirror.name %> </p> 
+<%= form_with model: @mirror do |form| %>
+
+<p><%= form.label :height %> 
+<%= form.select :height, [50, 80, 100] %> </p>
+
+<p><%= form.label :width %>
+<%= form.select :width, [50, 80] %> </p>
+
+<p><%= form.label :glass_thickness %>
+<%= form.select :glass_thickness, [4, 6] %> </p>
+
+<p><%= form.label :light %> 
+<%= form.select :light, [ 'warm', 'neutral', 'cold' ] %> </p>
+
+<p><%= form.label :heater %>
+<%= form.check_box :heater %> </p>
+
+<% end %>
+
+Price 
+<%= @mirror.price %>
+
+
+
+<%= form_with model: @order_items do |form| %>
+<p><%= form.hidden_field :mirror_id, value: @mirror.id %> 
+<%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: 1  %>
+<%= form.submit "Add to cart", class: 'btn bg-success text-black' %></p>
+<%end%>
+
+
+
+
+
+

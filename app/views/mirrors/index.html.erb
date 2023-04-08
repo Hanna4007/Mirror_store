@@ -1,0 +1,23 @@
+
+
+<% @mirrors.each do |mirror| %>
+
+<h5><%= link_to "#{mirror.name}", mirror_path(mirror) %></h5>
+<p>from <%= (mirror.price*0.25).round %>$</p>
+<% if mirror.mirror_images.attached?%>
+<%= image_tag mirror.mirror_images.first %>
+<%end%>
+
+
+<p><%= link_to "Edit", edit_mirror_path(mirror) %>
+<%= link_to "Destroy", mirror_path(mirror), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?" 
+                                      } %> 
+                                      </p>
+
+<% end %>
+
+<p><%= link_to "New", new_mirror_path %>  </p>
+<p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path %>  </p>
+

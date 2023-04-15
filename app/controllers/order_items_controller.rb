@@ -8,6 +8,12 @@ class OrderItemsController < ApplicationController
         session[:order_id]=@order.id  
     end
 
+    def edit
+        @order = current_order
+        @order_item = @order.order_items.find(params[:id])
+
+       
+    end
 
     def update
         @order = current_order
@@ -29,8 +35,8 @@ class OrderItemsController < ApplicationController
 
     private
     def order_items_params
-      params.require(:order_item).permit(:mirror_id, :quantity)
+      params.require(:order_item).permit(:mirror_id, :quantity, :height, :width, :glass_thickness, :light, :heater)
     end
 
-
+    
 end

@@ -26,31 +26,14 @@
 <%= form.submit type: :hidden %></p>
 
 
-<p><%= form.label :price %> 
-<%= form.text_field :price %> $ per square meter </p>
+<p><%= form.label :price_square %> 
+<%= form.text_field :price_square %> $ per square meter </p>
 
+<p> <%= form.label :mirror_images %> </p>
+<p><%= form.file_field :mirror_images, multiple: true %> </p>
 
 <%= form.submit "Update", class: 'btn bg-success text-black' %>
 
 <% end %>
 
-<p>Price 
-<% if @mirror.height==50 %>
-<% @mirror.price=(@mirror.price*@mirror.height*@mirror.width*0.0001).round %>
-<% elsif @mirror.height==80 %>
-<% @mirror.price=(@mirror.price*@mirror.height*@mirror.width*0.0001*1.15).round %>
-<% else %>
-<% @mirror.price=(@mirror.price*@mirror.height*@mirror.width*0.0001*1.3).round %>
-<% end %>
-
-<% if @mirror.glass_thickness==6 %>
-<% @mirror.price=@mirror.price+635 %>
-<% else %>
-<% @mirror.price%>
-<% end %>
-
-<% if @mirror.heater==true %>
-<%= @mirror.price=@mirror.price+1110 %>
-<% else %>
-<%= @mirror.price%>
-<% end %> </p>
+<p>Price <%= @mirror.price %>

@@ -4,16 +4,13 @@ class Order < ApplicationRecord
 
 
     def total_price
-        order_items.collect{|order_item| order_item.valid? ? order_item.unit_price*order_item.quantity : 0}.sum
+        order_items.map{|order_item| order_item.valid? ? order_item.unit_price*order_item.quantity : 0}.sum
     end  
     
     
     private
 
     def set_total_price
-       self[:total_price] = total_price
+       self.total_price = total_price
     end    
-       
-
-
 end

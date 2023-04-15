@@ -1,7 +1,10 @@
 class Mirror < ApplicationRecord
+ 
 
     has_many_attached :mirror_images
     has_many :order_items
+
+   #before_validation :update_price
 
     validates :name, presence: true
     
@@ -22,10 +25,18 @@ class Mirror < ApplicationRecord
 
     validates :price, presence: true
 
-    
-        
-    
-        
-    
+    #def calculate_price
+       #if height==50
+      #  price=(price_square*height*width*0.0001).round
+      # elsif height==80
+  # price=(price_square*height*width*0.0001*1.15).round
+   # else
+   # price=(price_square*height*width*0.0001*1.3).round
+  #  end
+  #  end
 
+  # private 
+  # def update_price
+  # self.price = calculate_price
+ #end
 end

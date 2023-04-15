@@ -7,10 +7,15 @@
                     turbo_confirm: "Are you sure?" 
                                       } %>
 <p> <%= @mirror.name %> </p> 
+
+<% if @mirror.mirror_images.attached?%>
+    <%= image_tag @mirror.mirror_images.first %>
+  <%end%>
+
 <%= form_with model: @mirror do |form| %>
 
 <p><%= form.label :height %> 
-<%= form.select :height, [50, 80, 100] %> </p>
+<%= form.select :height, [50, 80, 100] %></p>
 
 <p><%= form.label :width %>
 <%= form.select :width, [50, 80] %> </p>
@@ -27,7 +32,8 @@
 <% end %>
 
 Price 
-<%= @mirror.price %>
+<%= (@mirror.price_square*0.25).round %>
+
 
 
 
@@ -36,9 +42,6 @@ Price
 <%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: 1  %>
 <%= form.submit "Add to cart", class: 'btn bg-success text-black' %></p>
 <%end%>
-
-
-
 
 
 

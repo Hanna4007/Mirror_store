@@ -2,16 +2,12 @@ class MirrorsController < ApplicationController
 
     def index
         @mirrors = Mirror.all
-       # @order_items = current_order.order_items.new
-             
     end
     
-   def show
+    def show
         @mirror = Mirror.find(params[:id])
         @order_items = current_order.order_items.new
-  
     end  
-
        
     def new
         @mirror = Mirror.new
@@ -19,7 +15,6 @@ class MirrorsController < ApplicationController
     
     def create
         @mirror = Mirror.new(mirror_params)
-       
         if @mirror.save
           redirect_to mirrors_path
         else
@@ -33,7 +28,6 @@ class MirrorsController < ApplicationController
     
     def update
         @mirror = Mirror.find(params[:id])
-
         if @mirror.update(mirror_params)
           render :edit, status: :unprocessable_entity
           #redirect_to mirrors_path
@@ -47,13 +41,10 @@ class MirrorsController < ApplicationController
         @mirror.destroy
         redirect_to mirrors_path, status: :see_other
     end
-    
-
-   
-    
+       
     private
       def mirror_params
-        params.require(:mirror).permit(:name, :height, :width, :glass_thickness, :light, :heater, :price, mirror_images: [] )
+        params.require(:mirror).permit(:name, :height, :width, :glass_thickness, :light, :heater, :price, :price_square, mirror_images: [] )
       end
 
 

@@ -2,21 +2,50 @@
 
 <% @order_items.each do |order_item| %>
 
-<p> <%= order_item.mirror.name %> </p>
-<p> Size <%= order_item.mirror.height %> x <%= order_item.mirror.width %> </p>
-<p> <%= order_item.quantity %> </p>
-<p> <%= order_item.unit_price %> </p>
-<p> <%= order_item.total_price_item %> </p>
+  <p> <%= order_item.mirror.name %> </p>
 
-<%= form_with model: order_item do |form| %>
-<p><%= form.hidden_field :mirror_id, value: order_item.mirror.id %> 
-<%= form.number_field :quantity, value: order_item.quantity %>
-<%= form.submit "Update", class: 'btn bg-success text-black' %></p>
-<%end%>
+  <% if order_item.mirror.mirror_images.attached?%>
+    <%= image_tag order_item.mirror.mirror_images.first %>
+  <%end%>
+
+  <%= form_with model: order_item do |form| %>
+
+    <p><%= form.label :height %>
+    <%= form.select :height, [50, 80, 100], {}, { onchange: 'this.form.submit();' }  %> 
+    <%= form.submit type: :hidden %></p>
+
+    <p><%= form.label :width %>
+    <%= form.select :width, [50, 80], {}, { onchange: 'this.form.submit();' }  %> 
+    <%= form.submit type: :hidden %></p>
+
+    <p><%= form.label :glass_thickness %>
+    <%= form.select :glass_thickness, [4, 6], {}, { onchange: 'this.form.submit();' } %>
+    <%= form.submit type: :hidden %></p>
+
+    <p><%= form.label :light %> 
+    <%= form.select :light, [ 'warm', 'neutral', 'cold' ] %> 
+
+    <p><%= form.label :heater %>
+    <%= form.check_box :heater, { onchange: 'this.form.submit();' } %> 
+    <%= form.submit type: :hidden %></p>
+
+  <% end %>
+
+  <p> Unit price <%= order_item.unit_price %>$ </p>
 
 
+  <%= form_with model: order_item do |form| %>
+    <p><%= form.hidden_field :mirror_id, value: order_item.mirror.id %> 
+    Quantity <%= form.number_field :quantity, value: order_item.quantity %>
+    <%= form.submit "Update", class: 'btn bg-success text-black' %></p>
+  <%end%>
 
-<%= link_to "Destroy", order_item_path(order_item), data: {
+
+  <% if order_item.quantity>1 %>
+    <p> Price for <%= order_item.quantity %> pieces <%= order_item.total_price_item %>$
+  <% end %></p>
+
+  <%= link_to "Destroy", order_item_path(order_item), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?" 
                                       } %> 
@@ -24,6 +53,13 @@
 
 <% end %>
 <p> <%= current_order.total_price %> </p>
+
+
+
+
+
+
+
 
 
                                       

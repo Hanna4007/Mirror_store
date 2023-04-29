@@ -1,0 +1,35 @@
+<%= link_to "All mirrors", mirrors_path %>
+<h4>Calculation</h4>
+
+<%= @mirror.name%>
+
+<%= form_with model: @mirror, url: patch_calculation_path(@mirror) do |form| %>
+  <p>
+    <%= form.label :height %> 
+    <%= form.select :height, [50, 80, 100] %> 
+  </p>
+
+  <p>
+    <%= form.label :width %>
+    <%= form.select :width, [50, 80]  %> 
+  </p>
+
+  <p>
+    <%= form.label :glass_thickness %>
+    <%= form.select :glass_thickness, [4, 6] %>
+  </p>
+
+  <p>
+    <%= form.label :light %> 
+    <%= form.select :light, [ 'warm', 'neutral', 'cold' ] %> 
+  </p>
+
+  <p>
+    <%= form.label :heater %>
+    <%= form.check_box :heater %> 
+  </p>
+
+  <%= form.submit "Count" %>
+<% end %>
+
+<%= render 'mirror_price' %>

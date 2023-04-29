@@ -5,9 +5,17 @@
 <h5><%= link_to "#{mirror.name}", mirror_path(mirror) %></h5>
 
 <p>from <%= (mirror.price_square*0.25).round %>$</p>
+
+
+
+
 <% if mirror.mirror_images.attached?%>
 <%= image_tag mirror.mirror_images.first %>
 <%end%>
+
+
+
+
 
 
 <p><%= link_to "Edit", edit_mirror_path(mirror) %>

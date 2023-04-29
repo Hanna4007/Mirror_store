@@ -8,8 +8,10 @@
                                       } %>
 <p> <%= @mirror.name %> </p> 
 
-<% if @mirror.mirror_images.attached?%>
-    <%= image_tag @mirror.mirror_images.first %>
+ <% if @mirror.mirror_images.attached?%>
+    <% @mirror.mirror_images.each do |mirror_image| %>
+    <%= image_tag mirror_image %>
+    <%end%>
   <%end%>
 
 <%= form_with model: @mirror do |form| %>
@@ -35,12 +37,12 @@ Price
 <%= (@mirror.price_square*0.25).round %>
 
 
-
-
 <%= form_with model: @order_items do |form| %>
 <p><%= form.hidden_field :mirror_id, value: @mirror.id %> 
 <%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: 1  %>
 <%= form.submit "Add to cart", class: 'btn bg-success text-black' %></p>
+
+<%= link_to "Count", patch_calculation_path(@mirror) %>
 <%end%>
 
 

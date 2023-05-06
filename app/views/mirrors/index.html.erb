@@ -10,10 +10,18 @@
 
 
 <% if mirror.mirror_images.attached?%>
-<%= image_tag mirror.mirror_images.first %>
+<%  image_tag mirror.mirror_images.first %>
 <%end%>
 
 
+<% if mirror.mirror_images.attached?%>
+  <%  mirror.mirror_images.map do |mirror_image|%>
+  <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
+ 
+ 
+  
+<% end%>
+ <% end%>
 
 
 

@@ -1,40 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      
+      <%= form_with(url: [:mirrors], method: 'get') do |form| %>
+      <p>Installation</p>
+       
+      <p><%= form.radio_button :installation, '', onchange: 'this.form.submit();' %> 
+      <%= form.label :installation, 'All'%></p>
+
+      <p><%= form.radio_button :installation, 'wall', checked: params[:installation] == 'wall', onchange: 'this.form.submit();' %>
+      <%= form.label :installation, "Wall" %></p>
+
+      <p><%= form.radio_button :installation, 'table', checked: params[:installation] == 'table', onchange: 'this.form.submit();' %>
+      <%= form.label :installation, "Table" %></p>
+         
+      <p>Lamp</p>
+      <p><%= form.radio_button :lamp, '', onchange: 'this.form.submit();' %> 
+      <%= form.label :lamp, 'All'%></p>
+
+      <p><%= form.radio_button :lamp, 'built-in', checked: params[:lamp] == 'built-in', onchange: 'this.form.submit();' %>
+      <%= form.label :lamp, "Built-in" %></p>
+
+      <p><%= form.radio_button :lamp, 'outside', checked: params[:lamp] == 'outside', onchange: 'this.form.submit();' %>
+      <%= form.label :lamp, "Outside" %></p>
+      <% end %>
+    </div>
+    
+    <div class="col-md-10">
+      <% @mirrors.each do |mirror| %>
+
+        <h5><%= link_to "#{mirror.name}", mirror_path(mirror) %></h5>
+
+        <p>from <%= (mirror.price_square*0.25).round %>$</p>
+
+        <% if mirror.mirror_images.attached?%>
+          <%  image_tag mirror.mirror_images.first %>
+        <%end%>
 
 
-<% @mirrors.each do |mirror| %>
+        <% if mirror.mirror_images.attached?%>
+          <%  mirror.mirror_images.map do |mirror_image|%>
+            <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
+          <% end%>
+        <% end%>
 
-<h5><%= link_to "#{mirror.name}", mirror_path(mirror) %></h5>
-
-<p>from <%= (mirror.price_square*0.25).round %>$</p>
-
-
-
-
-<% if mirror.mirror_images.attached?%>
-<%  image_tag mirror.mirror_images.first %>
-<%end%>
-
-
-<% if mirror.mirror_images.attached?%>
-  <%  mirror.mirror_images.map do |mirror_image|%>
-  <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
- 
- 
-  
-<% end%>
- <% end%>
-
-
-
-
-<p><%= link_to "Edit", edit_mirror_path(mirror) %>
-<%= link_to "Destroy", mirror_path(mirror), data: {
+        <p><%= link_to "Edit", edit_mirror_path(mirror) %>
+        <%= link_to "Destroy", mirror_path(mirror), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?" 
                                       } %> 
                                       </p>
 
-<% end %>
+      <% end %>
 
-<p><%= link_to "New", new_mirror_path %>  </p>
-<p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path %>  </p>
+      <p><%= link_to "New", new_mirror_path %>  </p>
+      <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path %>  </p>
+    </div>
+  </div>
+</div>
+
+ 
+
+
 

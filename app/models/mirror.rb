@@ -21,7 +21,23 @@ class Mirror < ApplicationRecord
   VALID_LIGHT = [ 'warm', 'neutral', 'cold' ]
   validates :light, inclusion: { in: VALID_LIGHT }
 
+  VALID_INSTALLATION = [ 'wall', 'table' ]
+  validates :installation, inclusion: { in: VALID_INSTALLATION }
+
+  VALID_LAMP = [ 'built-in', 'outside' ]
+  validates :lamp, inclusion: { in: VALID_LAMP }
+
   validates :price_square, presence: true
+
+
+# scope :filter_installation_wall, -> { where(heater: true) }
+# scope :filter_installation_table, -> { where(heater: false) }
+ # scope :filter_instllation, ->(value) { where(heater: value) unless value.blank? }
+ # scope :filter_light, ->(value) { where(light: value) unless value.blank? }
+  scope :filter_installation, ->(value) { where(installation: value) unless value.blank? }
+  scope :filter_lamp, ->(value) { where(lamp: value) unless value.blank? }
+
+
 
   def calculated_price
     if height == 50

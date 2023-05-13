@@ -25,6 +25,12 @@
 <%= form.check_box :heater, { onchange: 'this.form.submit();' } %> 
 <%= form.submit type: :hidden %></p>
 
+<p> <%= form.label :installation %>
+<%= form.select :installation, [ 'wall', 'table' ] %> </p>
+
+<p> <%= form.label :lamp %>
+<%= form.select :lamp, [ 'built-in', 'outside' ]  %> </p>
+
 
 <p><%= form.label :price_square %> 
 <%= form.text_field :price_square %> $ per square meter </p>

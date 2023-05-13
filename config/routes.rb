@@ -5,22 +5,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "mirrors#index"
+  #get '/mirrors/installation_wall', to: 'mirrors#installation_wall', as: 'installation_wall'
+  #get '/mirrors/installation_table', to: 'mirrors#installation_table', as: 'installation_table'
+ 
   resources :mirrors
   resources :order_items
-  #get '/mirrors/:id/edit_calculation', to: 'mirror_calculations#count', as: 'calculation'
+  
   get '/mirrors/:id/calculation', to: 'mirror_calculations#count', as: 'calculation'
   patch '/mirrors/:id/calculation', to: 'mirror_calculations#count_assign', as: 'patch_calculation'
-  #put '/mirrors/:id/calculation', to: 'mirror_calculations#count_assign'
-
-  #get '/mirror_calculations/:id/edit', to: 'mirror_calculations#count', as: 'edit_mirror_calculation'
- 
-  #put '/mirror_calculations/:id', to: 'mirror_calculations#count_assign', as: 'mirror_calculation'
-
-  #resources :mirror_calculations
-
-
-  get '/order', to: 'order#show'
- 
   
+  get '/order', to: 'order#show'
 
 end

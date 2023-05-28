@@ -23,7 +23,20 @@
 
       <p><%= form.radio_button :lamp, 'outside', checked: params[:lamp] == 'outside', onchange: 'this.form.submit();' %>
       <%= form.label :lamp, "Outside" %></p>
-      <% end %>
+
+       <p>Sort by</p>
+
+      <p><%= form.radio_button :order, '', checked: params[:order] == '', onchange: 'this.form.submit();' %> 
+       <%= form.label :order, 'Recommended'%></p>
+     
+       <p><%= form.radio_button :order, 'price-desc', checked: params[:order] == 'price-desc', onchange: 'this.form.submit();' %> 
+       <%= form.label :order, 'Price (High-Low)'%></p>
+
+       <p><%= form.radio_button :order, 'price-asc', checked: params[:order] == 'price-asc', onchange: 'this.form.submit();' %> 
+       <%= form.label :order, 'Price (Low-High)'%></p>
+
+       <% end %>
+
     </div>
     
     <div class="col-md-10">

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root "mirrors#index"
   #get '/mirrors/installation_wall', to: 'mirrors#installation_wall', as: 'installation_wall'
   #get '/mirrors/installation_table', to: 'mirrors#installation_table', as: 'installation_table'
+  
  
   resources :mirrors
   resources :order_items

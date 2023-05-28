@@ -1,6 +1,7 @@
 class Mirror < ApplicationRecord
   has_many_attached :mirror_images
-  has_many :order_items
+  #accepts_nested_attributes_for :mirror_images, update_only: true
+   has_many :order_items
 
   before_validation :update_price
   
@@ -36,6 +37,17 @@ class Mirror < ApplicationRecord
  # scope :filter_light, ->(value) { where(light: value) unless value.blank? }
   scope :filter_installation, ->(value) { where(installation: value) unless value.blank? }
   scope :filter_lamp, ->(value) { where(lamp: value) unless value.blank? }
+  scope :with_field_order, ->(field = nil, order = nil) {
+    allowed_fields = ['price']
+    field = nil if allowed_fields.exclude?(field)
+    
+    direction = order == 'desc' ? 'desc' : 'asc'
+    
+    order(field => direction) if field
+ }
+
+ 
+ 
 
 
 

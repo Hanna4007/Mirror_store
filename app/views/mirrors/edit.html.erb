@@ -36,10 +36,21 @@
 <%= form.text_field :price_square %> $ per square meter </p>
 
 <p> <%= form.label :mirror_images %> </p>
+
+ <% if @mirror.mirror_images.attached?%>
+          <%  @mirror.mirror_images.map do |mirror_image|%>
+            <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
+          <% end%>
+        <% end%>
+
+
+
+
 <p><%= form.file_field :mirror_images, multiple: true %> </p>
 
 <%= form.submit "Update", class: 'btn bg-success text-black' %>
 
 <% end %>
+
 
 <p>Price <%= @mirror.price %>

@@ -42,11 +42,22 @@
             <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
           <% end%>
         <% end%>
+<p><%= form.file_field :mirror_images,  multiple: true, include_hidden: false %> </p>
+
+<!-- <p>
+  <%= form.label :mirror_images, "Add image", class: 'btn btn-outline-secondary text-black' %>
+  <%= form.file_field :mirror_images, multiple: true, style: 'display: none', id: 'mirror_images_field' %>
+</p> -->
+
+<p><% if @mirror.mirror_images.attached?%>
+ <%= link_to "Remove images", mirror_mirror_images_path(@mirror), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?" 
+                                      }, class: 'btn btn-outline-secondary text-black' %> 
+                                      
+                    <% end%> </p>
 
 
-
-
-<p><%= form.file_field :mirror_images, multiple: true %> </p>
 
 <%= form.submit "Update", class: 'btn bg-success text-black' %>
 

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   #get '/mirrors/installation_table', to: 'mirrors#installation_table', as: 'installation_table'
   
  
-  resources :mirrors
+  resources :mirrors do
+    resource :mirror_images, only: [:destroy]
+  end
   resources :order_items
   
   get '/mirrors/:id/calculation', to: 'mirror_calculations#count', as: 'calculation'

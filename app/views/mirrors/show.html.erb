@@ -1,11 +1,14 @@
 <%= link_to "All mirrors", mirrors_path %>
 
+ <% if current_user.present? && current_user.admin?%>
 <%= link_to "Edit", edit_admin_mirror_path(@mirror) %>
 
 <%= link_to "Destroy", admin_mirror_path(@mirror), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?" 
                                       } %>
+  <%end%>
+
 <p> <%= @mirror.name %> </p> 
 
  <% if @mirror.mirror_images.attached?%>

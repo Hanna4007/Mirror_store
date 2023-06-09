@@ -68,7 +68,7 @@ class Admin::MirrorsController < ApplicationController
 
       def check_admin
         unless current_user.admin?
-          flash[:warning] = 'You don`t` have permission to access this page'
+          flash[:warning] = 'You don`t have permission to access this page'
           redirect_to mirrors_path
         end
       end

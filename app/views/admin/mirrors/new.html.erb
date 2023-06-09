@@ -1,6 +1,15 @@
+
+<% if @mirror.errors.full_messages.any?%>
+  <% @mirror.errors.full_messages.each do |error| %>
+    <ul class="alert alert-danger"><%= error %></ul>
+  <% end %>
+<% end %>
+
 <h4>New</h4>
 
-<%= form_with model: @mirror do |form| %>
+
+
+<%= form_with model: [:admin, @mirror] do |form| %>
   
 <p> <%= form.label :name %> 
 <%= form.text_field :name %> </p>

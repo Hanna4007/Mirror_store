@@ -1,7 +1,14 @@
+<% if @mirror.errors.full_messages.any?%>
+  <% @mirror.errors.full_messages.each do |error| %>
+    <ul class="alert alert-danger"><%= error %></ul>
+  <% end %>
+<% end %>
+
 <%= link_to "All mirrors", mirrors_path %>
+
 <h4>Edit</h4>
 
-<%= form_with model: @mirror do |form| %>
+<%= form_with model: [:admin, @mirror] do |form| %>
   
 <p><%= form.label :name %> 
 <%= form.text_field :name %> </p>
@@ -50,7 +57,7 @@
 </p> -->
 
 <p><% if @mirror.mirror_images.attached?%>
- <%= link_to "Remove images", mirror_mirror_images_path(@mirror), data: {
+ <%= link_to "Remove images", admin_mirror_mirror_images_path(@mirror), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?" 
                                       }, class: 'btn btn-outline-secondary text-black' %> 

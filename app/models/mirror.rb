@@ -3,7 +3,7 @@ class Mirror < ApplicationRecord
   #accepts_nested_attributes_for :mirror_images, update_only: true
    has_many :order_items
 
-  before_validation :update_price
+  #before_validation :update_price
   
   validates :name, presence: true
   
@@ -47,32 +47,37 @@ class Mirror < ApplicationRecord
  }
 
  
- 
 
 
 
   def calculated_price
     if height == 50
-      (price_square*height*width*0.0001).round
+      unit_price=(price_square*height*width*0.0001).round
     elsif height==80
-      (price_square*height*width*0.0001*1.15).round
+      unit_price=(price_square*height*width*0.0001*1.15).round
     else
-      (price_square*height*width*0.0001*1.3).round
+      unit_price=(price_square*height*width*0.0001*1.3).round
     end
+
+    if glass_thickness==6
+      unit_price+=635
+    else
+      unit_price
+    end
+
+    if heater==true
+      unit_price+=1110
+    else
+      unit_price
+    end 
   end
 
- #def mirror_image_thumbnail
-    #mirror_images.map do |mirror_image|
-   # mirror_image.variant(resize: "218x185")
-   # end
-  #end
 
-  #variant(resize_to_limit: [218, 185]).processed
-  #variant :thumb, resize_to_limit: [100, 100] 
 
   private 
  
-  def update_price
-    self.price = calculated_price
-  end
+ # def update_price
+  #  self.price = calculated_price
+ # end
+
 end

@@ -1,0 +1,13 @@
+<h4>Log in</h4>
+
+<%= form_with scope: :session, url: session_path, data: {turbo: false} do |form| %>
+
+<p> <%= form.label :email %> 
+<%= form.email_field :email %> </p>
+
+<p> <%= form.label :password %> 
+<%= form.password_field :password  %> </p>
+
+<%= form.submit "Log in", class: 'btn bg-success text-black' %>
+
+<% end %>

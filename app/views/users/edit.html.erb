@@ -1,0 +1,24 @@
+<h4>Edit profile</h4>
+
+<%= form_with model: @user do |form| %>
+
+<p> <%= form.label :email %> 
+<%= form.email_field :email %> </p>
+
+<p> <%= form.label :name %> 
+<%= form.text_field :name %> </p>
+
+<p> <%= form.label :phone_number %> 
+<%= form.text_field :phone_number, placeholder: '+380 xxx xx xx xx' %> </p>
+
+<p> <%= form.label :password %> 
+<%= form.password_field :password  %> </p>
+
+<p> <%= form.label :password_confirmation %> 
+<%= form.password_field :password_confirmation %> </p>
+
+
+
+<%= form.submit "Save profile", class: 'btn bg-success text-black' %>
+
+<% end %>

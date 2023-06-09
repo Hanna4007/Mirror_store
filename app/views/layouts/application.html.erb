@@ -16,8 +16,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+   <body>
     <div class="container-fluid"> 
+
+    <% if flash[:success].present? %>
+     <div class="alert alert-success"><%= flash[:success]%></div>
+    <% elsif flash[:warning].present? %> 
+     <div class="alert alert-danger"><%= flash[:warning] %></div>
+    <% end %>
+ 
     <%= yield %>
     </div>
   </body>

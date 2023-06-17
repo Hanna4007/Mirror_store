@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
     def create
         create_user
-        session[:user_id] = user.id 
+        session[:user_id] = @user.id 
             
         if @user.valid?
           redirect_to mirrors_path

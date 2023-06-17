@@ -31,7 +31,7 @@ class OrderItemsController < ApplicationController
         @order_item = @order.order_items.find(params[:id])
 
         @order_item.update(order_items_params)
-        redirect_to order_path
+        redirect_to order_path(user_id: @user.id)
           
     end
 
@@ -40,7 +40,7 @@ class OrderItemsController < ApplicationController
         @order = current_order
         @order_item = @order.order_items.find(params[:id])
         @order_item.destroy
-        redirect_to order_path, status: :see_other
+        redirect_to order_path(user_id: @user.id), status: :see_other
     end
 
 

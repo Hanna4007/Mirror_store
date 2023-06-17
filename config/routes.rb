@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'order/show'
+  #get 'order/show'
   
   root "mirrors#index"
    
@@ -13,7 +13,8 @@ resources :mirrors, only: %i[show index]
   get '/mirrors/:id/calculation', to: 'mirror_calculations#count', as: 'calculation'
   patch '/mirrors/:id/calculation', to: 'mirror_calculations#count_assign', as: 'patch_calculation'
   
-  get '/order', to: 'order#show'
+  #get '/order', to: 'order#show'
+  get '/users/:user_id/order', to: 'order#show', as: 'order'
 
   resources :users, only: %i[new create edit update]
   resource :session, only: %i[new create destroy]

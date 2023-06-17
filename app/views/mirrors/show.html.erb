@@ -39,14 +39,20 @@
 Price 
 <%= (@mirror.price_square*0.25).round %>
 
-
+<% if current_user.present? %>
 <%= form_with model: @order_items do |form| %>
 <p><%= form.hidden_field :mirror_id, value: @mirror.id %> 
 <%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: 1  %>
 <%= form.submit "Add to cart", class: 'btn bg-success text-black' %></p>
-
-<%= link_to "Count", patch_calculation_path(@mirror) %>
 <%end%>
+<% else %>
+<p><%= link_to "Sign up to add to cart", new_user_path %></p>
+<p><%= link_to "Log in to add to cart", new_session_path %></p>
+
+<%end%>
+
+<p><%= link_to "Count", patch_calculation_path(@mirror) %></p>
+
 
 
 

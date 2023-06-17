@@ -16,8 +16,8 @@ class MirrorsController < ApplicationController
     end
     
     def show
-        @mirror = Mirror.find(params[:id])
-        @order_items = current_order.order_items.new
+      @mirror = Mirror.find(params[:id])
+      @order_items = current_order.order_items.new if current_user.present?
     end  
        
     private

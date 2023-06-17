@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
     end
 
     def destroy
+        session.delete(:order_id)
         session.delete(:user_id)
         redirect_to mirrors_path
     end

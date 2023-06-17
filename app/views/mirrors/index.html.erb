@@ -79,7 +79,10 @@
   <% if current_user.present? && current_user.admin?%>
       <p><%= link_to "New", new_admin_mirror_path %>  </p>
       <% end %>
-      <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path %>  </p>
+    <% if current_user.present? %>
+     <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path(user_id: @user.id) %>  </p>
+      <% end %>
+	  
     </div>
   </div>
 </div>

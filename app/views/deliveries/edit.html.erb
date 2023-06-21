@@ -1,0 +1,32 @@
+<h4>Edit delivery information</h4>
+
+<%= form_with model: [@order, @order.delivery], url: update_delivery_path do |form| %>
+
+<p> <%= form.label :post %> 
+<%= form.select :post, [ 'Nova post', 'Ukrpost' ] %> </p>
+
+<p> <%= form.label :delivery_type %> 
+<%= form.select :delivery_type, ['Delivery to the post office', 'Delivery by courier'] %> </p>
+
+<p> <%= form.label :receiver_name %> 
+<%= form.text_field :receiver_name %> </p>
+
+<p> <%= form.label :receiver_surname %> 
+<%= form.text_field :receiver_surname %> </p>
+
+<p> <%= form.label :receiver_phone_number %> 
+<%= form.text_field :receiver_phone_number, placeholder: '+380 xxx xx xx xx' %> </p>
+
+<p> <%= form.label :city %> 
+<%= form.text_field :city %> </p>
+
+<p> <%= form.label :receiver_address %> 
+<%= form.text_field :receiver_address %> </p>
+
+<p> <%= form.label :post_office_number %> 
+<%= form.text_field :post_office_number %> </p>
+
+<%= form.submit "Update delivery information", class: 'btn bg-success text-black' %>
+
+<% end %>
+

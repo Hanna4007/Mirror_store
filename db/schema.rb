@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_17_134009) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_17_191127) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_134009) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.string "delivery_type"
+    t.string "post"
+    t.string "receiver_name"
+    t.string "receiver_surname"
+    t.string "receiver_phone_number"
+    t.string "city"
+    t.string "receiver_address"
+    t.integer "post_office_number"
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
   create_table "mirrors", force: :cascade do |t|
@@ -93,5 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_134009) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "deliveries", "orders"
   add_foreign_key "orders", "users"
 end

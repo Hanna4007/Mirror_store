@@ -1,13 +1,13 @@
 module ApplicationHelper
-
-    def current_order 
-        @user = current_user
-      if !session[:order_id].nil?
-        @order = @user.orders.find(session[:order_id])
-      else
-        @user.orders.last&.status=='not paid' ? @order = @user.orders.last : @order = @user.orders.new
-      end    
+  def current_order
+    @user = current_user
+    @order ||= if !session[:order_id].nil?
+      current_user.orders.find_by(id: session[:order_id]) || current_user.orders.new
+    else
+      order = current_user.orders.last
+      order&.status =='not paid' ? order : current_user.orders.new
     end
+  end
 end
 
     

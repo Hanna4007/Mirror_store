@@ -38,4 +38,13 @@ resources :mirrors, only: %i[show index]
     end
   end
 
+  namespace :admin do
+    resources :order, only: [:index, :show, :edit, :update] do
+    resources :order_items, only: [:edit, :update, :destroy] 
+    resource :delivery, only: [:edit, :update] 
+  end
+end
+
+#patch 'admin/order/:order_id/order_items/:id', to: 'admin/order#update', as: 'update_order_items'
+
 end

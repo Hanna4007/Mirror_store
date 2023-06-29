@@ -12,7 +12,7 @@ class OrderController < ApplicationController
   end
 
   def order_confirm
-    current_order.update(status: 'paid')
+    current_order.update(status: 'confirmed')
     session.delete(:order_id)
     flash[:success] = 'Thank you for your order. We will contact you shortly'
     redirect_to mirrors_path

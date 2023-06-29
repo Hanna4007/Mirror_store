@@ -1,7 +1,6 @@
 class OrderItemsController < ApplicationController
     include Authentication
 
-    
     before_action :no_user, only: :create
     before_action :no_authentication, exept: :create
 

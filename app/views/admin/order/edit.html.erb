@@ -1,0 +1,116 @@
+<div class="container-fluid">
+
+  <%= link_to "All orders", admin_order_index_path %>
+    <div class="row">
+
+  <div class="col-md-4">
+
+  <%= form_with(model: @order, url: admin_order_path(@order), method: :patch) do |form| %>
+    <p>
+    <%= form.label :status %>
+    <%= form.select :status, ['in progress', 'confirmed', 'waiting for payment', 'paid', 'delivered', 'canceled'], {}, { onchange: 'this.form.submit();' } %>
+    <%= form.submit type: :hidden %>
+    </p>
+  <% end %>
+
+  <p> Total price <%= @order.total_price %> $</p>
+</div>
+  <div class="col-md-4">
+  <p> Order ID <%= @order.id %> </p>
+  <p> Created at <%= @order.created_at %> </p>
+  <p> Updated at <%= @order.updated_at %> </p>
+  <p> User ID <%= @order.user_id %> </p>
+  </div>
+   </div>
+        
+  <div class="row">
+    <div class="col-md-4">
+      <% @order_items.each do |order_item| %>
+
+        <p> <%= order_item.mirror.name %> </p>
+
+        <% if order_item.mirror.mirror_images.attached?%>
+          <%  order_item.mirror.mirror_images.map do |mirror_image|%>
+            <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
+          <% end%>
+        <% end%>
+
+        <p> Height <%= order_item.height %> mm </p>
+        <p> Width <%= order_item.width %> mm </p>
+        <p> Glass thickness <%= order_item.glass_thickness %> mm </p>
+        <p> <%= order_item.light.capitalize %> light  </p>
+        <p> <%= order_item.heater == true ? "With heater" : "Without heater" %> </p>
+        <p> Unit price: <%= order_item.unit_price %> $</p>
+        <p> Quantity: <%= order_item.quantity %> </p>
+
+
+        <% if ['in progress', 'confirmed', 'waiting for payment'].include?(@order.status)  %>
+        <p> <%= link_to "Edit the order item", edit_admin_order_order_item_path(@order, order_item)%> </p>
+        <p><%= link_to "Destroy", admin_order_order_item_path(@order, order_item), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?" 
+                                      } %> </p>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <% if @delivery.nil? %>
+        <p>Delivery information missing</p>
+      <% else %>
+        <p>Delivery information</p>
+
+          <% if @delivery.delivery_type == 'Delivery to the post office' %>
+            <p>
+            <%= @delivery.delivery_type %>
+            <%= @delivery.post %>
+            number <%= @delivery.post_office_number %>
+            in <%= @delivery.city %>
+            </p>
+
+            <p>
+            Receiver:
+            <%= @delivery.receiver_name %>
+            <%= @delivery.receiver_surname %>
+            </p>
+            <p>
+            Receiver phone number:
+            <%= @delivery.receiver_phone_number %>
+            </p>
+          <% else %>
+            <p>
+            Delivery by
+            <%= @delivery.post %>
+            courier to the address of
+            <%= @delivery.city %>,
+            <%= @delivery.receiver_address %>
+            </p>
+            <p>
+            Receiver:
+            <%= @delivery.receiver_name %>
+            <%= @delivery.receiver_surname %>
+            </p>
+            <p>
+            Receiver phone number:
+            <%= @delivery.receiver_phone_number %>
+            </p>
+          <% end %>
+      <% end %>
+
+      <% if @delivery && ['in progress', 'confirmed', 'waiting for payment'].include?(@order.status)  %>
+        <p> <%= link_to "Edit the delivery information", edit_admin_order_delivery_path(@order)%> </p>
+      <% end %>
+
+      <p> Buyer Information </p>
+      <p> Buyer name:
+      <%= @order.user.name %> </p>
+      <p> Buyer phone number:
+      <%= @order.user.phone_number %> </p>
+
+    </div>
+  </div>
+</div>
+
+
+
+  

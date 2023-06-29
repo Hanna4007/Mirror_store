@@ -1,53 +1,59 @@
 <div class="container-fluid">
  
   <% if current_user.present? %>
-  <%= "#{current_user.name}" %>
-   <%= link_to "Log out", session_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-   <%= link_to "Edit profile", edit_user_path(session[:user_id]) %>
+    <%= "#{current_user.name}" %>
+    <%= link_to "Log out", session_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+    <%= link_to "Edit profile", edit_user_path(session[:user_id]) %>
   <% else %>
-  <%= link_to "Sign up", new_user_path %>
-  <%= link_to "Log in", new_session_path %>
+    <%= link_to "Sign up", new_user_path %>
+    <%= link_to "Log in", new_session_path %>
   <% end %>
-   <div class="row">
+
+  <% if current_user.present? && current_user.admin?%>
+    <p><%= link_to "Orders", admin_order_index_path %>
+  <% end %>
+
+  <div class="row">
     <div class="col-md-2">
       
       <%= form_with(url: [:mirrors], method: 'get') do |form| %>
-      <p>Installation</p>
+        
+        <p>Installation</p>
        
-      <p><%= form.radio_button :installation, '', onchange: 'this.form.submit();' %> 
-      <%= form.label :installation, 'All'%></p>
+        <p><%= form.radio_button :installation, '', onchange: 'this.form.submit();' %> 
+        <%= form.label :installation, 'All'%></p>
 
-      <p><%= form.radio_button :installation, 'wall', checked: params[:installation] == 'wall', onchange: 'this.form.submit();' %>
-      <%= form.label :installation, "Wall" %></p>
+        <p><%= form.radio_button :installation, 'wall', checked: params[:installation] == 'wall', onchange: 'this.form.submit();' %>
+        <%= form.label :installation, "Wall" %></p>
 
-      <p><%= form.radio_button :installation, 'table', checked: params[:installation] == 'table', onchange: 'this.form.submit();' %>
-      <%= form.label :installation, "Table" %></p>
+        <p><%= form.radio_button :installation, 'table', checked: params[:installation] == 'table', onchange: 'this.form.submit();' %>
+        <%= form.label :installation, "Table" %></p>
          
-      <p>Lamp</p>
-      <p><%= form.radio_button :lamp, '', onchange: 'this.form.submit();' %> 
-      <%= form.label :lamp, 'All'%></p>
+        <p>Lamp</p>
 
-      <p><%= form.radio_button :lamp, 'built-in', checked: params[:lamp] == 'built-in', onchange: 'this.form.submit();' %>
-      <%= form.label :lamp, "Built-in" %></p>
+        <p><%= form.radio_button :lamp, '', onchange: 'this.form.submit();' %> 
+        <%= form.label :lamp, 'All'%></p>
 
-      <p><%= form.radio_button :lamp, 'outside', checked: params[:lamp] == 'outside', onchange: 'this.form.submit();' %>
-      <%= form.label :lamp, "Outside" %></p>
+        <p><%= form.radio_button :lamp, 'built-in', checked: params[:lamp] == 'built-in', onchange: 'this.form.submit();' %>
+        <%= form.label :lamp, "Built-in" %></p>
 
-       <p>Sort by</p>
+        <p><%= form.radio_button :lamp, 'outside', checked: params[:lamp] == 'outside', onchange: 'this.form.submit();' %>
+        <%= form.label :lamp, "Outside" %></p>
 
-      <p><%= form.radio_button :order, '', checked: params[:order] == '', onchange: 'this.form.submit();' %> 
-       <%= form.label :order, 'Recommended'%></p>
+        <p>Sort by</p>
+
+        <p><%= form.radio_button :order, '', checked: params[:order] == '', onchange: 'this.form.submit();' %> 
+        <%= form.label :order, 'Recommended'%></p>
      
-       <p><%= form.radio_button :order, 'price-desc', checked: params[:order] == 'price-desc', onchange: 'this.form.submit();' %> 
-       <%= form.label :order, 'Price (High-Low)'%></p>
+        <p><%= form.radio_button :order, 'price-desc', checked: params[:order] == 'price-desc', onchange: 'this.form.submit();' %> 
+        <%= form.label :order, 'Price (High-Low)'%></p>
 
-       <p><%= form.radio_button :order, 'price-asc', checked: params[:order] == 'price-asc', onchange: 'this.form.submit();' %> 
-       <%= form.label :order, 'Price (Low-High)'%></p>
+        <p><%= form.radio_button :order, 'price-asc', checked: params[:order] == 'price-asc', onchange: 'this.form.submit();' %> 
+        <%= form.label :order, 'Price (Low-High)'%></p>
 
-       <% end %>
+      <% end %>
 
     </div>
-    
     <div class="col-md-10">
       <% @mirrors.each do |mirror| %>
 
@@ -66,21 +72,23 @@
           <% end%>
         <% end%>
 
-         <% if current_user.present? && current_user.admin?%>
+        <% if current_user.present? && current_user.admin?%>
 
-        <p><%= link_to "Edit", edit_admin_mirror_path(mirror) %>
-        <%= link_to "Destroy", admin_mirror_path(mirror), data: {
+          <p><%= link_to "Edit", edit_admin_mirror_path(mirror) %>
+          <%= link_to "Destroy", admin_mirror_path(mirror), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?" 
                                       } %> 
                                       </p>
         <% end %>
       <% end %>
-  <% if current_user.present? && current_user.admin?%>
-      <p><%= link_to "New", new_admin_mirror_path %>  </p>
+
+      <% if current_user.present? && current_user.admin?%>
+        <p><%= link_to "New", new_admin_mirror_path %>  </p>
       <% end %>
-    <% if current_user.present? %>
-     <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path(user_id: @user.id) %>  </p>
+
+      <% if current_user.present? %>
+        <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path(user_id: @user.id) %>  </p>
       <% end %>
 	  
     </div>

@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <%= link_to "All mirrors", mirrors_path %>
+  <div class="row">
+    <div class="col-md-2">
+      <%= form_with(model: @order, url: admin_order_index_path, method: 'get') do |form| %>
+        <p>Status</p>
+
+        <p><%= form.radio_button :status, '', onchange: 'this.form.submit();' %> 
+        <%= form.label :status, 'All'%></p>
+
+        <p><%= form.radio_button :status, 'in progress', checked: params[:status] == 'in progress', onchange: 'this.form.submit();' %>
+        <%= form.label :status, "In progress" %></p>
+
+        <p><%= form.radio_button :status, 'confirmed', checked: params[:status] == 'confirmed', onchange: 'this.form.submit();' %>
+        <%= form.label :status, "Confirmed" %></p>
+
+        <p><%= form.radio_button :status, 'waiting for payment', checked: params[:status] == 'waiting for payment', onchange: 'this.form.submit();' %>
+        <%= form.label :status, "Waiting for payment" %></p>
+
+        <p><%= form.radio_button :status, 'paid', checked: params[:status] == 'paid', onchange: 'this.form.submit();' %>
+        <%= form.label :status, "Paid" %></p>
+
+        <p><%= form.radio_button :status, 'delivered', checked: params[:status] == 'delivered', onchange: 'this.form.submit();' %>
+        <%= form.label :status, "Delivered" %></p>
+
+        <p><%= form.radio_button :status, 'canceled', checked: params[:status] == 'canceled', onchange: 'this.form.submit();' %>
+        <%= form.label :status, "Canceled" %></p>
+
+        <p>Sort by</p>
+
+        <p><%= form.radio_button :focus, '', checked: params[:focus] == '', onchange: 'this.form.submit();' %> 
+        <%= form.label :focus, 'Recommended'%></p>
+     
+        <p><%= form.radio_button :focus, 'updated_at-desc', checked: params[:focus] == 'updated_at-desc', onchange: 'this.form.submit();' %> 
+        <%= form.label :focus, 'Update (New-Old)'%></p>
+
+        <p><%= form.radio_button :focus, 'updated_at-asc', checked: params[:focus] == 'updated_at-asc', onchange: 'this.form.submit();' %> 
+        <%= form.label :focus, 'Update (Old-New)'%></p>
+        
+      <% end %>
+
+    </div>
+    <div class="col-md-10">
+      <% @orders.each do |order| %>
+        <p> Order ID <%= order.id %> </p>
+        <p> Total price: <%= order.total_price %> $</p>
+        <p> Status <%= order.status %> </p>
+        <p> Updated at <%= order.updated_at %> </p>
+        
+        <p><%= link_to 'The order information', edit_admin_order_path(order) %> </p>
+  
+      <%end%>
+    </div>
+  </div>
+</div>
+
+
+  

@@ -23,7 +23,7 @@
   <p> Total price <%= current_order.total_price %> $</p>
 <% end %>
 
-<p> <%= link_to "Edit the order", order_path(user_id: @user.id)%> </p>
+<p> <%= link_to "Edit the order", order_path%> </p>
 
 </div>
 <div class="col-md-4">
@@ -53,7 +53,7 @@ courier to the address of
 <%= @delivery.receiver_phone_number %> </p>
 <% end %>
 
-<p> <%= link_to "Edit delivery information", edit_delivery_path(order_id: @order.id)%> </p>
+<p> <%= link_to "Edit delivery information", edit_delivery_path%> </p>
 
 
 <p> Buyer Information </p>
@@ -61,7 +61,9 @@ courier to the address of
 <%= @user.name %> </p>
 <p> Buyer phone number:
 <%= @user.phone_number %> </p>
-<p> <%= link_to "Edit buyer information", edit_user_path(session[:user_id])%> </p>
+
+<p><%= link_to "Edit buyer information", edit_user_path(redirect: order_verification_path) %></p>
+
 </div>
 </div>
 </div>

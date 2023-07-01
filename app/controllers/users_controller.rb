@@ -40,7 +40,7 @@ def update
     @user.update(user_params)
         
     if @user.valid?
-      redirect_to mirrors_path
+      redirect_to(params[:redirect] || mirrors_path)
     else
       render :edit, status: :unprocessable_entity
     end

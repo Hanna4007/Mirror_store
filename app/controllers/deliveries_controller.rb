@@ -1,4 +1,9 @@
 class DeliveriesController < ApplicationController
+
+  include Authentication
+
+  before_action :no_authentication
+  
   def new
     current_order
     @delivery = @order.delivery

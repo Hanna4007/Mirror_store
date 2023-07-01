@@ -36,6 +36,9 @@
 
         <p><%= form.radio_button :focus, 'updated_at-asc', checked: params[:focus] == 'updated_at-asc', onchange: 'this.form.submit();' %> 
         <%= form.label :focus, 'Update (Old-New)'%></p>
+    
+        <p><%= form.text_field :phone_number, placeholder: 'Enter phone number' %></p>
+        <p><%= form.submit 'Search', class: 'btn bg-success text-black' %></p>
         
       <% end %>
 

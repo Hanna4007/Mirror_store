@@ -1,4 +1,9 @@
 class Admin::DeliveriesController < ApplicationController
+  include Authentication
+  include Admin::Concerns::AdminAuthentication
+  
+  before_action :no_authentication
+  before_action :check_admin
   
   def edit
     @order = Order.find(params[:order_id])

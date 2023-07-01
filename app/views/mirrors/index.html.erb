@@ -3,7 +3,7 @@
   <% if current_user.present? %>
     <%= "#{current_user.name}" %>
     <%= link_to "Log out", session_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-    <%= link_to "Edit profile", edit_user_path(session[:user_id]) %>
+    <%= link_to "Edit profile", edit_user_path %>
   <% else %>
     <%= link_to "Sign up", new_user_path %>
     <%= link_to "Log in", new_session_path %>
@@ -88,7 +88,7 @@
       <% end %>
 
       <% if current_user.present? %>
-        <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path(user_id: @user.id) %>  </p>
+        <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path %>  </p>
       <% end %>
 	  
     </div>

@@ -36,7 +36,7 @@
 
   <%= form_with model: order_item do |form| %>
     <p><%= form.hidden_field :mirror_id, value: order_item.mirror.id %> 
-    Quantity <%= form.number_field :quantity, value: order_item.quantity %>
+    Quantity <%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: order_item.quantity %>
     <%= form.submit "Update", class: 'btn bg-success text-black' %></p>
   <%end%>
 
@@ -55,9 +55,9 @@
 <p> <%= current_order.total_price %> </p>
 
 <% if current_order.order_items.size >= 1 && !@delivery.present?%>
-<p> <%= link_to "Place an order", new_delivery_path(order_id: @order.id)%> </p>
+<p> <%= link_to "Place an order", new_delivery_path%> </p>
 <% elsif current_order.order_items.size >= 1 && @delivery.present?%>
-<p> <%= link_to "Place an order", order_verification_path(order_id: @order.id)%> </p>
+<p> <%= link_to "Place an order", order_verification_path%> </p>
 <% end %>
 
 

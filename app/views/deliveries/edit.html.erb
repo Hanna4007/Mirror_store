@@ -15,16 +15,25 @@
 <%= form.text_field :receiver_surname %> </p>
 
 <p> <%= form.label :receiver_phone_number %> 
-<%= form.text_field :receiver_phone_number, placeholder: '+380 xxx xx xx xx' %> </p>
+<%= form.text_field :receiver_phone_number, placeholder: '+380 xxx xx xx xx' %>
+<% @delivery.errors.full_messages_for(:receiver_phone_number).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :city %> 
 <%= form.text_field :city %> </p>
 
 <p> <%= form.label :receiver_address %> 
-<%= form.text_field :receiver_address %> </p>
+<%= form.text_field :receiver_address %> 
+<% @delivery.errors.full_messages_for(:receiver_address).each do |message|  %>
+  <%= message %> 
+<% end %> </p>
 
 <p> <%= form.label :post_office_number %> 
-<%= form.text_field :post_office_number %> </p>
+<%= form.text_field :post_office_number %>
+<% @delivery.errors.full_messages_for(:post_office_number).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <%= form.submit "Update delivery information", class: 'btn bg-success text-black' %>
 

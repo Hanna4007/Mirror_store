@@ -1,5 +1,6 @@
 class Admin::OrderController < ApplicationController
   include Authentication
+  include Admin::Concerns::AdminAuthentication
   
   before_action :no_authentication
   before_action :check_admin
@@ -7,6 +8,7 @@ class Admin::OrderController < ApplicationController
   def index
     @orders = Order.filter_status(params[:status])
                   .with_field_order(*params[:focus].to_s.split('-'))
+                  .find_by_user_phone(params[:phone_number])
   end
 
   def edit
@@ -25,17 +27,11 @@ class Admin::OrderController < ApplicationController
     end
   end
 
-  private
+private
       
-  def check_admin
-    unless current_user.admin?
-      flash[:warning] = 'You don`t have permission to access this page'
-      redirect_to mirrors_path
-    end
-  end
-
   def order_params
     params.require(:order).permit(:status)
   end
+  
 end
 

@@ -17,6 +17,8 @@ class Order < ApplicationRecord
     order(field => direction) if field
  }
 
+    scope :find_by_user_phone, ->(value) { joins(:user).where(users: { phone_number: value}) unless value.blank? }
+
     def total_price
         order_items.map{|order_item| order_item.valid? ? order_item.unit_price*order_item.quantity : 0}.sum
     end  

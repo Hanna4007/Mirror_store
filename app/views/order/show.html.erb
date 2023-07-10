@@ -1,4 +1,8 @@
 <%= link_to "All mirrors", mirrors_path %>
+<% if current_order.order_items.size == 0 %>
+<p> Your cart is empty </p>
+
+<% else %>
 
 <% @order_items.each do |order_item| %>
 
@@ -31,7 +35,7 @@
 
   <% end %>
 
-  <p> Unit price <%= order_item.unit_price %>$ </p>
+  <p> Unit price <%= order_item.unit_price %> $ </p>
 
 
   <%= form_with model: order_item do |form| %>
@@ -43,6 +47,8 @@
 
   <% if order_item.quantity>1 %>
     <p> Price for <%= order_item.quantity %> pieces <%= order_item.total_price_item %>$
+  <% elsif order_item.quantity==1 %>
+   <p> Price for <%= order_item.quantity %> piece <%= order_item.total_price_item %>$
   <% end %></p>
 
   <%= link_to "Destroy", order_item_path(order_item), data: {
@@ -52,12 +58,14 @@
                                       
 
 <% end %>
-<p> <%= current_order.total_price %> </p>
+<p>Total price <%= current_order.total_price %> $ </p>
 
 <% if current_order.order_items.size >= 1 && !@delivery.present?%>
 <p> <%= link_to "Place an order", new_delivery_path%> </p>
 <% elsif current_order.order_items.size >= 1 && @delivery.present?%>
 <p> <%= link_to "Place an order", order_verification_path%> </p>
+<% end %>
+
 <% end %>
 
 

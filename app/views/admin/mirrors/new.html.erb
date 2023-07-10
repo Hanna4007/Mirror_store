@@ -1,18 +1,13 @@
-
-<% if @mirror.errors.full_messages.any?%>
-  <% @mirror.errors.full_messages.each do |error| %>
-    <ul class="alert alert-danger"><%= error %></ul>
-  <% end %>
-<% end %>
-
 <h4>New</h4>
-
-
 
 <%= form_with model: [:admin, @mirror] do |form| %>
   
 <p> <%= form.label :name %> 
 <%= form.text_field :name %> </p>
+<p> <% @mirror.errors.full_messages_for(:name).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
+
 
 <p> <%= form.label :height %> 
 <%= form.select :height, [50, 80, 100] %> </p>
@@ -37,9 +32,18 @@
 
 <p> <%= form.label :price_square %> 
 <%= form.text_field :price_square %> </p>
+<p> <% @mirror.errors.full_messages_for(:price_square).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
 
 <p> <%= form.label :mirror_images %> </p>
 <p><%= form.file_field :mirror_images, multiple: true %> </p>
+
+<p> <%= form.label :description %> </p>
+<p> <%= form.text_area :description, rows: 15, cols: 150 %> </p>
+<p> <% @mirror.errors.full_messages_for(:description).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
 
 <%= form.submit "Create", class: 'btn bg-success text-black' %>
 

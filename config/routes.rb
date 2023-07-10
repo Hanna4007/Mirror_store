@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   get 'order/order_verification', to: 'order#order_verification', as: 'order_verification' 
   post 'order/order_confirm', to: 'order#order_confirm', as: 'order_confirm' 
  
-  resource :user, only: %i[new create edit update]
+  resources :users, only: %i[new create]
+  resource :user, only: %i[edit update]
   resource :session, only: %i[new create destroy]
 
   namespace :admin do
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :users, only: [:index, :show, :new, :create, :edit, :update]
     resources :order, only: [:index, :show, :edit, :update] do
       resources :order_items, only: [:edit, :update, :destroy] 
       resource :delivery, only: [:edit, :update] 

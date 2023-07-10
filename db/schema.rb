@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_162930) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_08_211506) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_162930) do
     t.integer "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "region"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
@@ -67,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_162930) do
     t.integer "price_square"
     t.string "installation"
     t.string "lamp"
+    t.text "description"
   end
 
   create_table "order_items", force: :cascade do |t|

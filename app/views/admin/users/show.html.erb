@@ -1,0 +1,26 @@
+<h4>The user information</h4>
+
+<% if @user.admin %>
+  <p><%= link_to 'Remove administrator rights', edit_admin_user_path(@user) %> </p>
+<% else %>
+  <p><%= link_to 'Grant administrator rights', edit_admin_user_path(@user) %> </p>
+<% end %>
+
+<p> ID: <%= @user.id %> </p>
+<p> Phone number: <%= @user.phone_number %> </p>
+<p> The right of administration: <%= @user.admin %> </p>
+<p> Name: <%= @user.name %> </p>
+<p> Email: <%= @user.email %> </p>
+
+<% @user.orders.each do |order| %>
+  <p> Order id: <%= order.id %> </p>
+  <p> Status: <%= order.status %> </p>
+  <p> Total price: <%= order.total_price %> </p>
+  <p><%= link_to 'The order information', edit_admin_order_path(order) %> </p>
+<% end %>
+
+
+          
+
+
+

@@ -10,7 +10,9 @@
   <% end %>
 
   <% if current_user.present? && current_user.admin?%>
-    <p><%= link_to "Orders", admin_order_index_path %>
+    <p><%= link_to "Orders", admin_order_index_path %> </p>
+    <p><%= link_to "Create a new user", new_admin_user_path %> </p>
+    <p><%= link_to "Users", admin_users_path %> </p>
   <% end %>
 
   <div class="row">
@@ -61,12 +63,12 @@
 
         <p>from <%= (mirror.price_square*0.25).round %>$</p>
 
-        <% if mirror.mirror_images.attached?%>
+        <% if mirror.mirror_images.attached? %>
           <%  image_tag mirror.mirror_images.first %>
         <%end%>
 
 
-        <% if mirror.mirror_images.attached?%>
+        <% if mirror.mirror_images.attached? %>
           <%  mirror.mirror_images.map do |mirror_image|%>
             <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
           <% end%>
@@ -89,7 +91,7 @@
 
       <% if current_user.present? %>
         <p><%= link_to " #{current_order.order_items.size} items with a value of #{current_order.total_price} $", order_path %>  </p>
-      <% end %>
+      <% end %>      
 	  
     </div>
   </div>

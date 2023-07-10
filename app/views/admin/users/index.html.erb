@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <%= link_to "All mirrors", mirrors_path %>
+  <div class="row">
+    <div class="col-md-2">
+      <%= form_with(model: @user, url: admin_users_path, method: 'get') do |form| %>
+        <p>Status</p>
+
+        <p><%= form.radio_button :admin, '', onchange: 'this.form.submit();' %> 
+        <%= form.label :admin, 'All'%></p>
+
+        <p><%= form.radio_button :admin, '1', checked: params[:admin] == '1', onchange: 'this.form.submit();' %>
+        <%= form.label :admin, "Admin" %></p>
+
+        <p><%= form.radio_button :admin, '0', checked: params[:admin] == '0', onchange: 'this.form.submit();' %>
+        <%= form.label :admin, "User" %></p>
+
+        <p><%= form.text_field :phone_number, placeholder: 'Enter phone number' %></p>
+        <p><%= form.submit 'Search', class: 'btn bg-success text-black' %></p>
+        
+      <% end %>
+
+    </div>
+    <div class="col-md-10">
+      <% @users.each do |user| %>
+        <p> Phone number: <%= user.phone_number %> </p>
+        <p> The right of administration: <%= user.admin %> </p>
+                
+        <p><%= link_to 'The user information', admin_user_path(user) %> </p>
+  
+      <%end%>
+    </div>
+  </div>
+</div>

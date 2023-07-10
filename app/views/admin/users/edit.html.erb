@@ -1,0 +1,15 @@
+<h4>Edit the user infotrmation</h4>
+
+<p> ID: <%= @user.id %> </p>
+<p> Phone number: <%= @user.phone_number %> </p>
+<p> Name: <%= @user.name %> </p>
+<p> Email: <%= @user.email %> </p>
+
+ <%= form_with(model: @user, url: admin_user_path(@user), method: :patch) do |form| %>
+
+<p> <%= form.label :admin %>
+<%= form.check_box :admin, checked: @user.admin? %> </p>
+
+<%= form.submit "Update the user infotrmation", class: 'btn bg-success text-black' %>
+
+<% end %>

@@ -34,7 +34,8 @@
 <p> <%= @delivery.delivery_type %> 
 <%= @delivery.post %>
 number <%= @delivery.post_office_number %>
-in <%= @delivery.city %> </p>
+in <%= @delivery.city %>
+<%= @delivery.region %> </p>
 <p> Receiver:
 <%= @delivery.receiver_name %>
 <%= @delivery.receiver_surname %> </p>
@@ -44,6 +45,7 @@ in <%= @delivery.city %> </p>
 <p> Delivery by 
 <%= @delivery.post %> 
 courier to the address of
+<%= @delivery.region %>, 
 <%= @delivery.city %>, 
 <%= @delivery.receiver_address %>  </p>
 <p> Receiver:

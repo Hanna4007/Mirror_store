@@ -20,10 +20,4 @@ class MirrorsController < ApplicationController
       @order_items = current_order.order_items.new if current_user.present?
     end  
        
-    private
-      def mirror_params
-        params.require(:mirror).permit(:name, :height, :width, :glass_thickness, :light, :heater, :price, :price_square, :installation, :lamp, mirror_images: [])
-      end
-
-
 end

@@ -1,6 +1,6 @@
-<h4>Sing up</h4>
+<h4>Create a new user</h4>
 
-<%= form_with model: @user do |form| %>
+<%= form_with model: [:admin, @user] do |form| %>
 
 <p> <%= form.label :email %> 
 <%= form.email_field :email %>
@@ -31,6 +31,10 @@
 <p> <% @user.errors.full_messages_for(:password_confirmation).each do |message|  %>
 <div class="alert alert-danger"><%= message %></div>
 <% end %> </p>
+
+
+<p> <%= form.label :admin %>
+<%= form.check_box :admin %> </p>
 
 <%= form.submit "Sign up", class: 'btn bg-success text-black' %>
 

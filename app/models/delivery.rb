@@ -17,6 +17,8 @@ class Delivery < ApplicationRecord
 
   validates :city, presence: true
 
+  validates :region, presence: true
+
   validates :post_office_number, presence: true, if: -> { delivery_type == 'Delivery to the post office' }
 
   validates :receiver_address, presence: true, if: -> { delivery_type == 'Delivery by courier' }

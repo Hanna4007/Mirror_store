@@ -15,6 +15,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id 
             
         if @user.valid?
+          flash[:success] = "Welcome, #{@user.name}"
           redirect_to mirrors_path
         else
           render :new, status: :unprocessable_entity
@@ -40,6 +41,7 @@ def update
     @user.update(user_params)
         
     if @user.valid?
+      flash[:success] = "Your profile was successfully updated"
       redirect_to(params[:redirect] || mirrors_path)
     else
       render :edit, status: :unprocessable_entity
@@ -53,6 +55,6 @@ def update
       end
 
     def user_params
-        params.require(:user).permit(:email, :name, :password, :password_confirmation, :phone_number, :admin)
+        params.require(:user).permit(:email, :name, :password, :password_confirmation, :phone_number)
     end
 end

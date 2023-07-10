@@ -10,9 +10,15 @@
 
 <p> <%= form.label :receiver_name %> 
 <%= form.text_field :receiver_name %> </p>
+<% @delivery.errors.full_messages_for(:receiver_name).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :receiver_surname %> 
 <%= form.text_field :receiver_surname %> </p>
+<% @delivery.errors.full_messages_for(:receiver_surname).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :receiver_phone_number %> 
 <%= form.text_field :receiver_phone_number, placeholder: '+380 xxx xx xx xx' %>
@@ -22,6 +28,15 @@
 
 <p> <%= form.label :city %> 
 <%= form.text_field :city %> </p>
+<% @delivery.errors.full_messages_for(:city).each do |message|  %>
+  <%= message %>
+<% end %> </p>
+
+<p> <%= form.label :region %> 
+<%= form.text_field :region %> </p>
+<p> <% @delivery.errors.full_messages_for(:region).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :receiver_address %> 
 <%= form.text_field :receiver_address %>

@@ -3,16 +3,28 @@
 <%= form_with model: @user do |form| %>
 
 <p> <%= form.label :email %> 
-<%= form.email_field :email %> </p>
+<%= form.email_field :email %> 
+<% @user.errors.full_messages_for(:email).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :name %> 
-<%= form.text_field :name %> </p>
+<%= form.text_field :name %> 
+<% @user.errors.full_messages_for(:name).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :phone_number %> 
-<%= form.text_field :phone_number, placeholder: '+380 xxx xx xx xx' %> </p>
+<%= form.text_field :phone_number, placeholder: '+380 xxx xx xx xx' %> 
+<% @user.errors.full_messages_for(:phone_number).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 <p> <%= form.label :password %> 
-<%= form.password_field :password  %> </p>
+<%= form.password_field :password  %> 
+<% @user.errors.full_messages_for(:password).each do |message|  %>
+  <%= message %>
+<% end %> </p>
 
 
 

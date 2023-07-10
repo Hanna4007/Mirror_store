@@ -12,47 +12,49 @@
   <%= form.select :delivery_type, ['Delivery to the post office', 'Delivery by courier'] %> 
   </p>
 
-  <p> 
-  <%= form.label :receiver_name %> 
-  <%= form.text_field :receiver_name %> 
-  </p>
-
-  <p> 
-  <%= form.label :receiver_surname %> 
-  <%= form.text_field :receiver_surname %> 
-  </p>
-
-  <p> 
-  <%= form.label :receiver_phone_number %> 
-  <%= form.text_field :receiver_phone_number, placeholder: '+380 xxx xx xx xx' %> 
-  <% @delivery.errors.full_messages_for(:receiver_phone_number).each do |message|  %>
+  <p> <%= form.label :receiver_name %> 
+  <%= form.text_field :receiver_name %> </p>
+  <p> <% @delivery.errors.full_messages_for(:receiver_name).each do |message|  %>
     <%= message %>
-  <% end %>
-  </p>
+  <% end %> </p>
 
-  <p> 
-  <%= form.label :city %> 
-  <%= form.text_field :city %> 
-  </p>
+  <p> <%= form.label :receiver_surname %> 
+  <%= form.text_field :receiver_surname %> </p>
+  <p> <% @delivery.errors.full_messages_for(:receiver_surname).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
+
+  <p> <%= form.label :receiver_phone_number %> 
+  <%= form.text_field :receiver_phone_number, placeholder: '+380 xxx xx xx xx' %> </p>
+  <p> <% @delivery.errors.full_messages_for(:receiver_phone_number).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
+
+  <p> <%= form.label :city %> 
+  <%= form.text_field :city %> </p>
+  <p> <% @delivery.errors.full_messages_for(:city).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
+
+  <p> <%= form.label :region %> 
+  <%= form.text_field :region %> </p>
+  <p> <% @delivery.errors.full_messages_for(:region).each do |message|  %>
+    <%= message %>
+  <% end %> </p>
 
   <p> 
   <%= form.label :receiver_address %> 
-  <%= form.text_field :receiver_address %> 
-  <% @delivery.errors.full_messages_for(:receiver_address).each do |message|  %>
+  <%= form.text_field :receiver_address %> </p>
+  <p> <% @delivery.errors.full_messages_for(:receiver_address).each do |message|  %>
     <%= message %>
-  <% end %>
-  </p>
+  <% end %> </p>
 
-  <p> 
-  <%= form.label :post_office_number %> 
-  <%= form.text_field :post_office_number %>
-  <% @delivery.errors.full_messages_for(:post_office_number).each do |message|  %>
+  <p> <%= form.label :post_office_number %> 
+  <%= form.text_field :post_office_number %> </p>
+  <p> <% @delivery.errors.full_messages_for(:post_office_number).each do |message|  %>
     <%= message %>
-  <% end %>
-  </p>
+  <% end %> </p>
 
-  <p>
-  <%= form.submit "Update delivery information", class: 'btn bg-success text-black' %>
-  </p>
+  <p> <%= form.submit "Update delivery information", class: 'btn bg-success text-black' %> </p>
 
 <% end %>

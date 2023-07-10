@@ -14,9 +14,11 @@ class SessionsController < ApplicationController
 
         if user.present?
         session[:user_id] = user.id 
+        flash[:success] = "Welcome, #{user.name}"
         redirect_to mirrors_path
          else
         render :new
+        flash.now[:warning] = 'Invalid email or password'
         end  
     end
 

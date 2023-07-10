@@ -44,7 +44,7 @@ class Admin::MirrorsController < ApplicationController
 
 private
   def mirror_params
-    params.require(:mirror).permit(:name, :height, :width, :glass_thickness, :light, :heater, :price, :price_square, :installation, :lamp, mirror_images: [])
+    params.require(:mirror).permit(:name, :height, :width, :glass_thickness, :light, :heater, :price, :price_square, :installation, :lamp, :description, mirror_images: [])
   end
 
 end

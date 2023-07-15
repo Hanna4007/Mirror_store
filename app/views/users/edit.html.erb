@@ -1,8 +1,8 @@
 <h4>Edit profile</h4>
 
 <%= form_with model: @user do |form| %>
-
-<p> <%= form.label :email %> 
+  <%= hidden_field_tag :redirect, params[:redirect] %>
+ <p> <%= form.label :email %> 
 <%= form.email_field :email %> 
 <% @user.errors.full_messages_for(:email).each do |message|  %>
   <%= message %>
@@ -19,16 +19,6 @@
 <% @user.errors.full_messages_for(:phone_number).each do |message|  %>
   <%= message %>
 <% end %> </p>
-
-<p> <%= form.label :password %> 
-<%= form.password_field :password  %> 
-<% @user.errors.full_messages_for(:password).each do |message|  %>
-  <%= message %>
-<% end %> </p>
-
-
-
-
 
 <%= form.submit "Save profile", class: 'btn bg-success text-black' %>
 

@@ -1,9 +1,7 @@
 class Mirror < ApplicationRecord
   has_many_attached :mirror_images
-  #accepts_nested_attributes_for :mirror_images, update_only: true
-   has_many :order_items
-
-  #before_validation :update_price
+  has_many :order_items
+  has_rich_text :description
   
   validates :name, presence: true
   
@@ -30,11 +28,6 @@ class Mirror < ApplicationRecord
 
   validates :price_square, presence: true
 
-
-# scope :filter_installation_wall, -> { where(heater: true) }
-# scope :filter_installation_table, -> { where(heater: false) }
- # scope :filter_instllation, ->(value) { where(heater: value) unless value.blank? }
- # scope :filter_light, ->(value) { where(light: value) unless value.blank? }
   scope :filter_installation, ->(value) { where(installation: value) unless value.blank? }
   scope :filter_lamp, ->(value) { where(lamp: value) unless value.blank? }
   scope :with_field_order, ->(field = nil, order = nil) {
@@ -71,13 +64,5 @@ class Mirror < ApplicationRecord
       unit_price
     end 
   end
-
-
-
-  private 
  
- # def update_price
-  #  self.price = calculated_price
- # end
-
 end

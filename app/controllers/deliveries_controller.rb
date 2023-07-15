@@ -37,6 +37,6 @@ class DeliveriesController < ApplicationController
 
   private
   def deliveries_params
-    params.require(:delivery).permit(:delivery_type, :post, :receiver_name, :receiver_surname, :receiver_phone_number, :city, :receiver_address, :post_office_number)
+    params.require(:delivery).permit(:delivery_type, :post, :receiver_name, :receiver_surname, :receiver_phone_number, :city, :region, :receiver_address, :post_office_number)
   end
 end

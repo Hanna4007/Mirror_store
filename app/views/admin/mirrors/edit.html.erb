@@ -65,11 +65,11 @@
                                       
                     <% end%> </p>
 
-<p> <%= form.label :description %> </p>
-<p> <%= form.text_area :description, rows: 15, cols: 150 %> </p>
-<p> <% @mirror.errors.full_messages_for(:description).each do |message|  %>
-    <%= message %>
-  <% end %> </p>
+
+<div class="field">
+    <%= form.label :description %>
+    <%= form.rich_text_area :description %>
+  </div>
 
 <%= form.submit "Update", class: 'btn bg-success text-black' %>
 

@@ -217,6 +217,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actiontext (~> 7.0)
   bcrypt (~> 3.1.7)
   bootsnap
   capybara

@@ -5,11 +5,14 @@
 <p> Name: <%= @user.name %> </p>
 <p> Email: <%= @user.email %> </p>
 
+<% unless @current_user == @user%>
  <%= form_with(model: @user, url: admin_user_path(@user), method: :patch) do |form| %>
 
 <p> <%= form.label :admin %>
 <%= form.check_box :admin, checked: @user.admin? %> </p>
 
 <%= form.submit "Update the user infotrmation", class: 'btn bg-success text-black' %>
+
+<% end %>
 
 <% end %>

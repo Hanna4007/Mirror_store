@@ -11,33 +11,14 @@
 
 <p> <%= @mirror.name %> </p> 
 
- <% if @mirror.mirror_images.attached?%>
+ <p> <% if @mirror.mirror_images.attached?%>
     <% @mirror.mirror_images.each do |mirror_image| %>
     <%= image_tag mirror_image %>
     <%end%>
-  <%end%>
+  <%end%> </p>
 
-<%= form_with model: @mirror do |form| %>
-
-<p><%= form.label :height %> 
-<%= form.select :height, [50, 80, 100] %></p>
-
-<p><%= form.label :width %>
-<%= form.select :width, [50, 80] %> </p>
-
-<p><%= form.label :glass_thickness %>
-<%= form.select :glass_thickness, [4, 6] %> </p>
-
-<p><%= form.label :light %> 
-<%= form.select :light, [ 'warm', 'neutral', 'cold' ] %> </p>
-
-<p><%= form.label :heater %>
-<%= form.check_box :heater %> </p>
-
-<% end %>
-
-Price 
-<%= (@mirror.price_square*0.25).round %>
+<p> Price from
+<%= (@mirror.price_square*0.25).round %>$ </p>
 
 <% if current_user.present? %>
 <%= form_with model: @order_items do |form| %>
@@ -51,7 +32,7 @@ Price
 
 <%end%>
 
-<p><%= link_to "Count", patch_calculation_path(@mirror) %></p>
+<p><%= link_to "Price calculator", patch_calculation_path(@mirror) %></p>
 
 <p> <%= @mirror.description %> </p>
 

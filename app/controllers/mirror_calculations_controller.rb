@@ -25,7 +25,7 @@ class MirrorCalculationsController < ApplicationController
 
     private
     def mirror_params
-        params.require(:mirror).permit(:height, :width, :glass_thickness, :light, :heater, :price, :price_square)
+        params.require(:mirror).permit(:height, :width, :glass_thickness, :light, :heater)
     end
 
 end

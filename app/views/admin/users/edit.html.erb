@@ -1,18 +1,16 @@
-<h4>Edit the user infotrmation</h4>
+<div class="container mx-3">
+  <p class="fs-4 mt-2">Edit the user infotrmation</p>
 
-<p> ID: <%= @user.id %> </p>
-<p> Phone number: <%= @user.phone_number %> </p>
-<p> Name: <%= @user.name %> </p>
-<p> Email: <%= @user.email %> </p>
+  <p> ID: <%= @user.id %> </p>
+  <p> Phone number: <%= @user.phone_number %> </p>
+  <p> Name: <%= @user.name %> </p>
+  <p> Email: <%= @user.email %> </p>
 
-<% unless @current_user == @user%>
- <%= form_with(model: @user, url: admin_user_path(@user), method: :patch) do |form| %>
-
-<p> <%= form.label :admin %>
-<%= form.check_box :admin, checked: @user.admin? %> </p>
-
-<%= form.submit "Update the user infotrmation", class: 'btn bg-success text-black' %>
-
-<% end %>
-
-<% end %>
+  <% unless @current_user == @user%>
+    <%= form_with(model: @user, url: admin_user_path(@user), method: :patch) do |form| %>
+      <p> <%= form.label :admin %>
+      <%= form.check_box :admin, checked: @user.admin? %> </p>
+      <%= form.submit "Update the user infotrmation", class: 'btn bg-info rounded-0' %>
+    <% end %>
+  <% end %>
+</div>

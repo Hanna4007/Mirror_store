@@ -3,7 +3,8 @@ class MirrorsController < ApplicationController
     def index
 
       order = CGI.unescape(params[:order]) if params[:order]
-      @mirrors = Mirror.filter_installation(params[:installation])
+      @mirrors = Mirror.includes(mirror_images_attachments: :blob)
+                         .filter_installation(params[:installation])
                          .filter_lamp(params[:lamp])
                          .with_field_order(*params[:order].to_s.split('-'))
                          #params[:order] = 'price+asc'

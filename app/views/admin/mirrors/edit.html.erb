@@ -1,79 +1,78 @@
+<div class="container-fluid">
+  <h4>Edit the mirror</h4>
 
-<%= link_to "All mirrors", mirrors_path %>
+  <%= form_with model: [:admin, @mirror] do |form| %>
+    <div class="row">
+      <div class="col-md-4 mt-2">
+        <div><%= form.label :name %> 
+        <%= form.text_field :name, class: 'form-control' %>
+        <% @mirror.errors.full_messages_for(:name).each do |message|  %>
+          <div class="text-danger"><%= message %></div>
+        <% end %> </div>
 
-<h4>Edit</h4>
+        <div><%= form.label :height %> 
+        <%= form.select :height, [50, 80, 100], {}, {class: 'form-control', onchange: 'this.form.submit();' }  %> 
+        <%= form.submit type: :hidden %></div>
 
-<%= form_with model: [:admin, @mirror] do |form| %>
-  
-<p><%= form.label :name %> 
-<%= form.text_field :name %> </p>
-<p> <% @mirror.errors.full_messages_for(:name).each do |message|  %>
-    <%= message %>
-  <% end %> </p>
+        <div><%= form.label :width %>
+        <%= form.select :width, [50, 80], {}, {class: 'form-control', onchange: 'this.form.submit();' }  %> 
+        <%= form.submit type: :hidden %></div>
 
-<p><%= form.label :height %> 
-<%= form.select :height, [50, 80, 100], {}, { onchange: 'this.form.submit();' }  %> 
-<%= form.submit type: :hidden %></p>
+        <div><%= form.label :glass_thickness %>
+        <%= form.select :glass_thickness, [4, 6], {}, {class: 'form-control', onchange: 'this.form.submit();' } %>
+        <%= form.submit type: :hidden %></div>
 
-<p><%= form.label :width %>
-<%= form.select :width, [50, 80], {}, { onchange: 'this.form.submit();' }  %> 
-<%= form.submit type: :hidden %></p>
+        <div><%= form.label :light %> 
+        <%= form.select :light, [ 'warm', 'neutral', 'cold' ], {}, {class: 'form-control', onchange: 'this.form.submit();' } %> </div>
 
-<p><%= form.label :glass_thickness %>
-<%= form.select :glass_thickness, [4, 6], {}, { onchange: 'this.form.submit();' } %>
-<%= form.submit type: :hidden %></p>
+        <div><%= form.label :heater %>
+        <%= form.check_box :heater, { onchange: 'this.form.submit();' } %> 
+        <%= form.submit type: :hidden %></div>
 
-<p><%= form.label :light %> 
-<%= form.select :light, [ 'warm', 'neutral', 'cold' ] %> 
+        <div> <%= form.label :installation %>
+        <%= form.select :installation, [ 'wall', 'table' ], {}, {class: 'form-control', onchange: 'this.form.submit();' } %> </div>
 
-<p><%= form.label :heater %>
-<%= form.check_box :heater, { onchange: 'this.form.submit();' } %> 
-<%= form.submit type: :hidden %></p>
+        <div> <%= form.label :lamp %>
+        <%= form.select :lamp, [ 'built-in', 'outside' ], {}, {class: 'form-control', onchange: 'this.form.submit();' }  %> </div>
 
-<p> <%= form.label :installation %>
-<%= form.select :installation, [ 'wall', 'table' ] %> </p>
-
-<p> <%= form.label :lamp %>
-<%= form.select :lamp, [ 'built-in', 'outside' ]  %> </p>
-
-
-<p><%= form.label :price_square %> 
-<%= form.text_field :price_square %> $ per square meter </p>
-<p> <% @mirror.errors.full_messages_for(:price_square).each do |message|  %>
-    <%= message %>
-  <% end %> </p>
-
-<p> <%= form.label :mirror_images %> </p>
-
- <% if @mirror.mirror_images.attached?%>
+        <div><%= form.label :price_square %> 
+        <%= form.text_field :price_square, size: 8, class: 'form-control' %> $ per square meter </div>
+        <% @mirror.errors.full_messages_for(:price_square).each do |message|  %>
+          <div class="text-danger"><%= message %></div>
+        <% end %>
+     
+        <% if @mirror.mirror_images.attached?%>
           <%  @mirror.mirror_images.map do |mirror_image|%>
-            <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
+            <p><%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %></p>
           <% end%>
         <% end%>
-<p><%= form.file_field :mirror_images,  multiple: true, include_hidden: false %> </p>
 
-<!-- <p>
-  <%= form.label :mirror_images, "Add image", class: 'btn btn-outline-secondary text-black' %>
-  <%= form.file_field :mirror_images, multiple: true, style: 'display: none', id: 'mirror_images_field' %>
-</p> -->
+        <p><label for="mirror_mirror_images" class="btn bg-info rounded-0">
+          Add image
+          <%= form.file_field :mirror_images, multiple: true, include_hidden: false, style: 'display: none;' %>
+        </label></p>
 
-<p><% if @mirror.mirror_images.attached?%>
- <%= link_to "Remove images", admin_mirror_mirror_images_path(@mirror), data: {
+        <% if @mirror.mirror_images.attached?%>
+          <p><%= link_to "Remove images", admin_mirror_mirror_images_path(@mirror), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?" 
-                                      }, class: 'btn btn-outline-secondary text-black' %> 
+                                      }, class: 'btn bg-warning-subtle rounded-0' %> </p>
                                       
-                    <% end%> </p>
+        <% end%> 
+      </div>
 
+      <div class="col-md-8 mt-2">
 
-<div class="field">
-    <%= form.label :description %>
-    <%= form.rich_text_area :description %>
-  </div>
+        <div class="field">
+          <%= form.label :description %>
+          <%= form.rich_text_area :description, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
 
-<%= form.submit "Update", class: 'btn bg-success text-black' %>
-
-<% end %>
+    <%= form.submit "Update", class: 'btn bg-info rounded-0 my-2' %>
+  <% end %>
+ </div>
 
 
 

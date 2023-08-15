@@ -1,33 +1,48 @@
 <div class="container-fluid">
-  <%= link_to "All mirrors", mirrors_path %>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 border border-info border-top-0 mt-2">
       <%= form_with(model: @user, url: admin_users_path, method: 'get') do |form| %>
-        <p>Status</p>
+        <div class="border-bottom border-info">
+          <p>Status</p>
 
-        <p><%= form.radio_button :admin, '', onchange: 'this.form.submit();' %> 
-        <%= form.label :admin, 'All'%></p>
+          <p><%= form.radio_button :admin, '', onchange: 'this.form.submit();' %> 
+          <%= form.label :admin, 'All'%></p>
 
-        <p><%= form.radio_button :admin, '1', checked: params[:admin] == '1', onchange: 'this.form.submit();' %>
-        <%= form.label :admin, "Admin" %></p>
+          <p><%= form.radio_button :admin, '1', checked: params[:admin] == '1', onchange: 'this.form.submit();' %>
+          <%= form.label :admin, "Admin" %></p>
 
-        <p><%= form.radio_button :admin, '0', checked: params[:admin] == '0', onchange: 'this.form.submit();' %>
-        <%= form.label :admin, "User" %></p>
+          <p><%= form.radio_button :admin, '0', checked: params[:admin] == '0', onchange: 'this.form.submit();' %>
+          <%= form.label :admin, "User" %></p>
+        </div>
 
-        <p><%= form.text_field :phone_number, placeholder: 'Enter phone number' %></p>
-        <p><%= form.submit 'Search', class: 'btn bg-success text-black' %></p>
-        
+        <div class="border-bottom border-info mt-3">
+          <p><%= form.text_field :phone_number, placeholder: 'Enter phone number' %></p>
+          <p><%= form.submit 'Search', class: 'btn bg-info rounded-0' %></p>
+        </div>        
       <% end %>
-
     </div>
-    <div class="col-md-10">
-      <% @users.each do |user| %>
-        <p> Phone number: <%= user.phone_number %> </p>
-        <p> The right of administration: <%= user.admin %> </p>
-                
-        <p><%= link_to 'The user information', admin_user_path(user) %> </p>
-  
-      <%end%>
+
+    <div class="col-md-10 mt-2">
+      <table class="table table-bordered border-info">
+        <thead>
+          <tr>
+            <th>Phone number</th>
+            <th>User name</th>
+            <th>The right of administration</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.phone_number %></td>
+              <td><%= user.name %></td>
+              <td><%= user.admin %></td>                
+              <td><%= link_to 'The user information', admin_user_path(user), class: 'btn bg-info rounded-0' %></td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

@@ -1,24 +1,51 @@
-<h4>The user information</h4>
-<% unless @current_user == @user%>
-<% if @user.admin %>
-  <p><%= link_to 'Remove administrator rights', edit_admin_user_path(@user) %> </p>
-<% else %>
-  <p><%= link_to 'Grant administrator rights', edit_admin_user_path(@user) %> </p>
-<% end %>
-<% end %>
+<div class="container-fluid">
+  <div class="card border border-info rounded-0 mt-2">
+    <div class="card-body px-5">
+      <div class="row">
+        <div class="col-md-4">
+          <% unless @current_user == @user%>
+            <% if @user.admin %>
+              <p><%= link_to 'Remove administrator rights', edit_admin_user_path(@user), class: 'btn bg-info rounded-0'  %> </p>
+            <% else %>
+              <p><%= link_to 'Grant administrator rights', edit_admin_user_path(@user), class: 'btn bg-info rounded-0'  %> </p>
+            <% end %>
+          <% end %>
 
-<p> ID: <%= @user.id %> </p>
-<p> Phone number: <%= @user.phone_number %> </p>
-<p> The right of administration: <%= @user.admin %> </p>
-<p> Name: <%= @user.name %> </p>
-<p> Email: <%= @user.email %> </p>
+          <p>ID: <%= @user.id %> </p>
+          <p>The right of administration: <%= @user.admin %> </p>
+        </div>
+        <div class="col-md-4">
+          <p>Phone number: <%= @user.phone_number %> </p>
+          <p>Name: <%= @user.name %> </p>
+          <p>Email: <%= @user.email %> </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<% @user.orders.each do |order| %>
-  <p> Order id: <%= order.id %> </p>
-  <p> Status: <%= order.status %> </p>
-  <p> Total price: <%= order.total_price %> </p>
-  <p><%= link_to 'The order information', edit_admin_order_path(order) %> </p>
-<% end %>
+  <table class="table table-bordered border-info mt-2">
+    <thead>
+      <tr>
+        <th>Order id</th>
+        <th>Status</th>
+        <th>Total price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.status %></td>
+          <td><%= order.total_price %> $</td>                
+          <td><%= link_to 'The order information', edit_admin_order_path(order), class: 'btn bg-info rounded-0' %></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>
+
+
 
 
           

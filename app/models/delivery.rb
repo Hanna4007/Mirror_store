@@ -15,11 +15,11 @@ class Delivery < ApplicationRecord
 
   validates :receiver_phone_number, presence: true, length: {is: 13}
 
-  validates :city, presence: true
+  validates :city, presence: true, length: {minimum: 3, maximum: 20}
 
-  validates :region, presence: true
+  validates :region, presence: true, length: {minimum: 3, maximum: 20}
 
-  validates :post_office_number, presence: true, if: -> { delivery_type == 'Delivery to the post office' }
+  validates :post_office_number, presence: true, if: -> { delivery_type == 'Delivery to the post office' }, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   validates :receiver_address, presence: true, if: -> { delivery_type == 'Delivery by courier' }
   

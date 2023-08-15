@@ -3,27 +3,18 @@
     <div class="card-body px-5">
       <div class="row">
         <div class="col-md-4">
-          <%= form_with(model: @order, url: admin_order_path(@order), method: :patch) do |form| %>
-            <p>
-              <%= form.label :status %>
-              <%= form.select :status, ['in progress', 'confirmed', 'waiting for payment', 'paid', 'delivered', 'canceled'], {}, { onchange: 'this.form.submit();'}%>
-              <%= form.submit type: :hidden %>
-            </p>
-          <% end %>
-      
+          <p> Status <%= @order.status %> </p>
           <p> Total price <%= @order.total_price %> $</p>
-          <p> Order ID <%= @order.id %> </p>
         </div>
 
         <div class="col-md-4">
-          <p> Created at <%= @order.created_at %> </p>
-          <p> Updated at <%= @order.updated_at %> </p>
-          <p> User ID <%= @order.user_id %> </p>
+          <p> Order number <%= @order.id %> </p>
+          <p> Update date <%= @order.updated_at.strftime('%d-%m-%Y') %> </p>        
         </div>
       </div>
     </div>
   </div>  
-        
+      
   <% @order_items.each do |order_item| %>
     <div class="card border border-info rounded-0 mt-2">
       <div class="card-body px-5">
@@ -46,78 +37,71 @@
           <div class="col-md-3 mt-2" >
             <p> Unit price: <%= order_item.unit_price %> $</p>
             <p> Quantity: <%= order_item.quantity %> </p>
-
-            <% if ['in progress', 'confirmed', 'waiting for payment'].include?(@order.status)  %>
-              <p> <%= link_to "Edit the order item", edit_admin_order_order_item_path(@order, order_item), class: 'btn bg-info rounded-0'%> </p>
-              <p><%= link_to "Destroy", admin_order_order_item_path(@order, order_item), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?" 
-                                      }, class: 'btn bg-info rounded-0' %> </p>
-            <% end %>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
   <% end %>
-    
-  <div class="row">
-    <div class="col-md-6">
+ 
+  <div class="card border border-info rounded-0 mt-2">
+    <div class="card-body px-5">
+      <div class="fw-bold text-end mx-3">Total price <%= current_order.total_price %>$</div>
+      <div class="d-flex justify-content-end mx-3">
+        <% if @order.status == 'in progress' %>
+            <div> <%= link_to "Edit the order", order_path, class: 'btn bg-info rounded-0'%> </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border border-info rounded-0 mt-2">
+    <div class="card-body px-5">
       <% if @delivery.nil? %>
-        <p class="fs-4">Delivery information missing</p>
+        <div class="fs-4">Delivery information missing</div>
       <% else %>
-        <p class="fs-4">Delivery information</p>
+        <div class="fs-4">Delivery information</div>
         <% if @delivery.delivery_type == 'Delivery to the post office' %>
-          <p>
+          <div>
             <%= @delivery.delivery_type %>
             <%= @delivery.post %>
             number <%= @delivery.post_office_number %>
             in <%= @delivery.city %>,
             <%= @delivery.region %> region
-          </p>
-          <p>
+          </div>
+          <div>
             Receiver:
             <%= @delivery.receiver_name %>
             <%= @delivery.receiver_surname %>
-          </p>
-          <p>
+          </div>
+          <div>
             Receiver phone number:
             <%= @delivery.receiver_phone_number %>
-          </p>
+          </div>
         <% else %>
-          <p>
+          <div>
             Delivery by
             <%= @delivery.post %>
             courier to the address of
             <%= @delivery.region %> region,
             <%= @delivery.city %>,
             <%= @delivery.receiver_address %>
-          </p>
-          <p>
+          </div>
+          <div>
             Receiver:
             <%= @delivery.receiver_name %>
             <%= @delivery.receiver_surname %>
-          </p>
-          <p>
+          </div>
+          <div>
             Receiver phone number:
             <%= @delivery.receiver_phone_number %>
-          </p>
+          </div>
+        <% end %>
+        <% if @order.status == 'in progress' %>
+          <div> <%= link_to "Edit the delivery information", edit_delivery_path(@order), class: 'btn bg-info rounded-0'%> </div>
         <% end %>
       <% end %>
-
-      <% if @delivery && ['in progress', 'confirmed', 'waiting for payment'].include?(@order.status)  %>
-        <p> <%= link_to "Edit the delivery information", edit_admin_order_delivery_path(@order), class: 'btn bg-info rounded-0'%> </p>
-      <% end %>
-    </div>
-    <div class="col-md-6">
-      <p class="fs-4"> Buyer Information </p>
-      <p> Buyer name:
-      <%= @order.user.name %> </p>
-      <p> Buyer phone number:
-      <%= @order.user.phone_number %> </p>
     </div>
   </div>
 </div>
-
-
-
-  
+    
+    

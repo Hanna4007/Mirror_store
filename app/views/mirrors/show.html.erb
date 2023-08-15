@@ -1,40 +1,45 @@
-<%= link_to "All mirrors", mirrors_path %>
-
- <% if current_user.present? && current_user.admin?%>
-<%= link_to "Edit", edit_admin_mirror_path(@mirror) %>
-
-<%= link_to "Destroy", admin_mirror_path(@mirror), data: {
+<div class="container-fluid">
+  <% if current_user.present? && current_user.admin?%>
+    <%= link_to "Edit", edit_admin_mirror_path(@mirror), class: 'btn bg-info rounded-0'%>
+    <%= link_to "Destroy", admin_mirror_path(@mirror), data: {
                     turbo_method: :delete,
-                    turbo_confirm: "Are you sure?" 
-                                      } %>
+                    turbo_confirm: "Are you sure?"}, class: 'btn bg-warning-subtle rounded-0'%>
   <%end%>
 
-<p> <%= @mirror.name %> </p> 
+  <div class="row">
+    <div class="col-md-6 border border-info border-top-0 mt-2" >
+      <p> <% if @mirror.mirror_images.attached?%>
+        <% @mirror.mirror_images.each do |mirror_image| %>
+          <%= image_tag mirror_image %>
+        <%end%>
+      <%end%> </p>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="fs-4"> <%= @mirror.name %> </p>
+          <p class="fw-bold"> Price from
+            <%= (@mirror.price_square*0.25).round %>$</p>
+          <p><%= link_to "Price calculator", patch_calculation_path(@mirror), class: 'btn bg-info rounded-0' %></p>
+        </div>
+        <div class="col-md-6">
+          <% if current_user.present? %>
+            <%= form_with model: @order_items do |form| %>
+              <p><%= form.hidden_field :mirror_id, value: @mirror.id %> 
+              <%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: 1  %>
+              <%= form.submit "Add to cart", class: 'btn bg-info rounded-0'%></p>
+            <%end%>
+          <% else %>
+            <p><%= link_to "Sign up to add to cart", new_user_path, class: 'btn bg-info rounded-0' %></p>
+            <p><%= link_to "Log in to add to cart", new_session_path, class: 'btn bg-info rounded-0' %></p>
+          <%end%>
+        </div>
+      </div>
+    </div>
 
- <p> <% if @mirror.mirror_images.attached?%>
-    <% @mirror.mirror_images.each do |mirror_image| %>
-    <%= image_tag mirror_image %>
-    <%end%>
-  <%end%> </p>
-
-<p> Price from
-<%= (@mirror.price_square*0.25).round %>$ </p>
-
-<% if current_user.present? %>
-<%= form_with model: @order_items do |form| %>
-<p><%= form.hidden_field :mirror_id, value: @mirror.id %> 
-<%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: 1  %>
-<%= form.submit "Add to cart", class: 'btn bg-success text-black' %></p>
-<%end%>
-<% else %>
-<p><%= link_to "Sign up to add to cart", new_user_path %></p>
-<p><%= link_to "Log in to add to cart", new_session_path %></p>
-
-<%end%>
-
-<p><%= link_to "Price calculator", patch_calculation_path(@mirror) %></p>
-
-<p> <%= @mirror.description %> </p>
+    <div class="col-md-6 border border-info border-top-0 border-left-0 mt-2" >
+      <p> <%= @mirror.description %> </p>
+    </div>
+  </div>
+</div>
 
 
 

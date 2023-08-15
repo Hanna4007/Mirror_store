@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   
   get 'order/order_verification', to: 'order#order_verification', as: 'order_verification' 
   post 'order/order_confirm', to: 'order#order_confirm', as: 'order_confirm' 
- 
+  get '/orders', to: 'order#index', as: 'orders'
+  get 'order/:id', to: 'order#show_order', as: 'show_order' 
+  
   resources :users, only: %i[new create]
   resource :user, only: %i[edit update]
   resource :session, only: %i[new create destroy]
@@ -35,6 +37,11 @@ Rails.application.routes.draw do
       resources :order_items, only: [:edit, :update, :destroy] 
       resource :delivery, only: [:edit, :update] 
     end
+    resource :informations, only: [:edit, :update] 
   end
+
+  get '/delivery_information', to: 'informations#delivery_information', as: :delivery_information
+  get '/company_information', to: 'informations#company_information', as: :company_information
+  get '/contact_information', to: 'informations#contact_information', as: :contact_information
 
 end

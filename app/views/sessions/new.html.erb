@@ -1,13 +1,16 @@
-<h4>Log in</h4>
+<div class="container mx-3">
+  <p class="fs-4">Log in</p>
 
-<%= form_with scope: :session, url: session_path, data: {turbo: false} do |form| %>
-
-<p> <%= form.label :email %> 
-<%= form.email_field :email %> </p>
-
-<p> <%= form.label :password %> 
-<%= form.password_field :password  %> </p>
-
-<%= form.submit "Log in", class: 'btn bg-success text-black' %>
-
-<% end %>
+  <%= form_with scope: :session, url: session_path, data: {turbo: false} do |form| %>
+    <div class="row">
+      <div class="col-md-6">
+        <p> <%= form.label :email %> 
+        <%= form.email_field :email, class: 'form-control' %></p>
+                    
+        <p> <%= form.label :password %> 
+        <%= form.password_field :password, class: 'form-control'  %></p>
+       </div>
+    </div>
+    <%= form.submit "Log in", class: 'btn bg-info rounded-0'%></div>  
+  <% end %>
+</div>

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2 border border-info border-top-0 mt-2">
-      <%= form_with(model: @order, url: admin_order_index_path, method: 'get') do |form| %>
+    <div class="col-md-2 border border-info border-top-0 border-bottom-0 mt-2">
+      <%= form_with(model: @order, url: orders_path, method: 'get') do |form| %>
         <div class="border-bottom border-info">
           <p>Status</p>
 
@@ -40,17 +40,13 @@
           <%= form.label :focus, 'Update (Old-New)'%></p>
         </div>
 
-        <div class="border-bottom border-info mt-3">
-          <p><%= form.text_field :phone_number, placeholder: 'Enter phone number' %></p>
-          <p><%= form.submit 'Search', class: 'btn bg-info rounded-0'%></p>
-        </div>        
       <% end %>
     </div>
     <div class="col-md-10 mt-2">
      <table class="table table-bordered border-info">
         <thead>
           <tr>
-            <th>Order ID</th>
+          <th>Order number</th>
             <th>Total price</th>
             <th>Status</th>
             <th>Updated at</th>
@@ -60,11 +56,11 @@
         <tbody>
           <% @orders.each do |order| %>
             <tr>
-              <td><%= order.id %></td>
+            <td><%= order.id %></td>
               <td><%= order.total_price %> $</td>
               <td><%= order.status %></td>
-              <td><%= order.updated_at %></td>
-              <td><%= link_to 'The order information', edit_admin_order_path(order), class: 'btn btn-sm bg-info rounded-0' %></td>
+              <td><%= order.updated_at.strftime('%d-%m-%Y') %></td>
+              <td><%= link_to 'The order information', show_order_path(order), class: 'btn btn-sm bg-info rounded-0' %></td>
             </tr>
           <% end %>
         </tbody>
@@ -72,6 +68,3 @@
     </div>
   </div>
 </div>
-
-
-  

@@ -1,9 +1,7 @@
 class Admin::UsersController < ApplicationController
 
-  include Authentication
   include Admin::Concerns::AdminAuthentication
-  
-  before_action :no_authentication
+
   before_action :check_admin
 
   def index
@@ -51,6 +49,6 @@ class Admin::UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:admin)
+        params.require(:user).permit(:email, :name, :password, :password_confirmation, :phone_number, :admin)
     end
 end

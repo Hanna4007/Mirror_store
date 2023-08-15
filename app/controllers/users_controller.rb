@@ -9,10 +9,9 @@ class UsersController < ApplicationController
         @user = User.new
     end    
 
-
     def create
-        create_user
-        session[:user_id] = @user.id 
+      create_user
+       session[:user_id] = @user.id 
             
         if @user.valid?
           flash[:success] = "Welcome, #{@user.name}"
@@ -22,16 +21,7 @@ class UsersController < ApplicationController
         end
       end
 
-   # def create
-        #@user = User.new user_params
-       # if @user.save
-       #   redirect_to mirrors_path
-      #  else
-      #    render :new
-      #  end
-   # end 
-
-   def edit
+     def edit
     @user = User.find(session[:user_id])
    end    
 

@@ -1,7 +1,6 @@
-<%= link_to "All mirrors", mirrors_path %>
-<h4>Calculation</h4>
+<div class="container-fluid">
 
-<%= @mirror.name%>
+<p class="fs-4">Price calculator for <%= @mirror.name%></p>
 
 <%= form_with model: @mirror, url: patch_calculation_path(@mirror) do |form| %>
   <p>
@@ -29,7 +28,7 @@
     <%= form.check_box :heater %> 
   </p>
 
-  <%= form.submit "Count" %>
+  <%= form.submit "Count", class: 'btn bg-info rounded-0' %>
 <% end %>
 
 <%= render 'mirror_price' %>

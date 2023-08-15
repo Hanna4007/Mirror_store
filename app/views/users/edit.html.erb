@@ -1,25 +1,29 @@
-<h4>Edit profile</h4>
+<div class="container mx-3">
+  <p class="fs-4">Edit profile</p>
 
-<%= form_with model: @user do |form| %>
-  <%= hidden_field_tag :redirect, params[:redirect] %>
- <p> <%= form.label :email %> 
-<%= form.email_field :email %> 
-<% @user.errors.full_messages_for(:email).each do |message|  %>
-  <%= message %>
-<% end %> </p>
+  <%= form_with model: @user do |form| %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= hidden_field_tag :redirect, params[:redirect] %>
+        <p> <%= form.label :email %> 
+        <%= form.email_field :email, class: 'form-control' %> 
+        <% @user.errors.full_messages_for(:email).each do |message|  %>
+          <div class="text-danger"><%= message %></div>
+        <% end %> </p>
 
-<p> <%= form.label :name %> 
-<%= form.text_field :name %> 
-<% @user.errors.full_messages_for(:name).each do |message|  %>
-  <%= message %>
-<% end %> </p>
+        <p> <%= form.label :name %> 
+        <%= form.text_field :name, class: 'form-control'  %> 
+        <% @user.errors.full_messages_for(:name).each do |message|  %>
+          <div class="text-danger"><%= message %></div>
+        <% end %> </p>
 
-<p> <%= form.label :phone_number %> 
-<%= form.text_field :phone_number, placeholder: '+380 xxx xx xx xx' %> 
-<% @user.errors.full_messages_for(:phone_number).each do |message|  %>
-  <%= message %>
-<% end %> </p>
-
-<%= form.submit "Save profile", class: 'btn bg-success text-black' %>
-
-<% end %>
+        <p> <%= form.label :phone_number %> 
+        <%= form.text_field :phone_number, placeholder: '+380 xxx xx xx xx', class: 'form-control'  %> 
+        <% @user.errors.full_messages_for(:phone_number).each do |message|  %>
+          <div class="text-danger"><%= message %></div>
+        <% end %> </p>
+      </div>
+    </div>
+    <%= form.submit "Save profile", class: 'btn bg-info rounded-0' %>
+  <% end %>
+</div>

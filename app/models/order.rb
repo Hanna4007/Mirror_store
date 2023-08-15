@@ -21,6 +21,7 @@ class Order < ApplicationRecord
 
     def total_price
         order_items.map{|order_item| order_item.valid? ? order_item.unit_price*order_item.quantity : 0}.sum
+        #order_items.includes(:mirror).map { |order_item| order_item.valid? ? order_item.unit_price * order_item.quantity : 0 }.sum
     end  
     
     

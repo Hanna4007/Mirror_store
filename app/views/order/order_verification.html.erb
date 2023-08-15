@@ -1,77 +1,89 @@
-<%= link_to "Continue shopping", mirrors_path %>
-
 <div class="container-fluid">
-<div class="row">
-    <div class="col-md-4">
-<% @order_items.each do |order_item| %>
+  <div class="row">
+    <div class="col-md-9" >
+      <% @order_items.each do |order_item| %>
+        <div class="card border border-info border-top-0 rounded-0">
+          <div class="card-body px-5">
+            <div class="row">
+              <div class="col-md-4 mt-2">
+                <% if order_item.mirror.mirror_images.attached?%>
+                  <%= image_tag order_item.mirror.mirror_images.first.variant(resize_to_limit: [300, 250]).processed  %>
+                <% end%>
+              </div>
 
-  <p> <%= order_item.mirror.name %> </p>
+              <div class="col-md-4 mt-2" >
+                <p> <%= order_item.mirror.name %> </p>
+                <p> Height <%= order_item.height %> mm </p>
+                <p> Width <%= order_item.width %> mm </p>
+                <p> Glass thickness <%= order_item.glass_thickness %> mm </p>
+                <p> <%= order_item.light.capitalize %> light  </p>
+                <p> <%= order_item.heater == true ? "With heater" : "Without heater" %> </p>
+              </div>
 
-  <% if order_item.mirror.mirror_images.attached?%>
-          <%  order_item.mirror.mirror_images.map do |mirror_image|%>
-            <%=  image_tag mirror_image.variant(resize_to_limit: [218, 185]).processed %>
-          <% end%>
-  <% end%>
+              <div class="col-md-3 mt-2" >
+                <p> Unit price: <%= order_item.unit_price %> $</p>
+                <p> Quantity: <%= order_item.quantity %> </p>
+              </div>
+            </div>
+          </div>
+        </div>  
+      <% end %>
+    </div>
+    
+    <div class="col-md-3" >
+      <p class="fw-bold text-end mx-5 my-3">Total price <%= current_order.total_price %>$</p>
+               
+      <div class="d-flex justify-content-end mx-5">
+        <%= link_to "Edit the order", order_path, class: 'btn bg-info rounded-0'%>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <p class="fs-4"> Delivery information</p>
 
-  <p> Height <%= order_item.height %> mm </p>
-  <p> Width <%= order_item.width %> mm </p>
-  <p> Glass thickness <%= order_item.glass_thickness %> mm </p>
-  <p> <%= order_item.light.capitalize %> light  </p>
-  <p> <%= order_item.heater == true ? "With heater" : "Without heater" %> </p>
-  <p> Unit price: <%= order_item.unit_price %> $</p>
-  <p> Quantity: <%= order_item.quantity %> </p>
-  <p> Total price <%= current_order.total_price %> $</p>
-<% end %>
+      <%if @delivery.delivery_type == 'Delivery to the post office'%>
+        <p> <%= @delivery.delivery_type %> 
+            <%= @delivery.post %>
+            number <%= @delivery.post_office_number %>
+            in <%= @delivery.city %>,
+            <%= @delivery.region %> region
+        </p>
+        <p> Receiver:
+          <%= @delivery.receiver_name %>
+          <%= @delivery.receiver_surname %> 
+        </p>
+        <p> Receiver phone number:
+          <%= @delivery.receiver_phone_number %> </p>
+      <%else%>
+        <p> Delivery by 
+          <%= @delivery.post %> 
+          courier to the address of
+          <%= @delivery.region %> region, 
+          <%= @delivery.city %>, 
+          <%= @delivery.receiver_address %>  
+        </p>
+        <p> Receiver:
+          <%= @delivery.receiver_name %>
+          <%= @delivery.receiver_surname %> 
+        </p>
+        <p> Receiver phone number:
+          <%= @delivery.receiver_phone_number %> </p>
+      <% end %>
 
-<p> <%= link_to "Edit the order", order_path%> </p>
+      <p> <%= link_to "Edit delivery information", edit_delivery_path, class: 'btn bg-info rounded-0'%> </p>
+    </div>
+    <div class="col-md-6">
+      <p class="fs-4"> Buyer Information </p>
+      <p> Buyer name:
+      <%= @user.name %> </p>
+      <p> Buyer phone number:
+      <%= @user.phone_number %> </p>
 
+      <p><%= link_to "Edit buyer information", edit_user_path(redirect: order_verification_path), class: 'btn bg-info rounded-0' %></p>
+    </div>
+  </div>
+  <p> <%= button_to 'Confirm the order', order_confirm_path, method: :post, class: 'btn btn-dark rounded-0' %> </p>
 </div>
-<div class="col-md-4">
-
-<p>Delivery information</p>
-
-<%if @delivery.delivery_type == 'Delivery to the post office'%>
-<p> <%= @delivery.delivery_type %> 
-<%= @delivery.post %>
-number <%= @delivery.post_office_number %>
-in <%= @delivery.city %>,
-<%= @delivery.region %> region</p>
-<p> Receiver:
-<%= @delivery.receiver_name %>
-<%= @delivery.receiver_surname %> </p>
-<p> Receiver phone number:
-<%= @delivery.receiver_phone_number %> </p>
-<%else%>
-<p> Delivery by 
-<%= @delivery.post %> 
-courier to the address of
-<%= @delivery.region %> region, 
-<%= @delivery.city %>, 
-<%= @delivery.receiver_address %>  </p>
-<p> Receiver:
-<%= @delivery.receiver_name %>
-<%= @delivery.receiver_surname %> </p>
-<p> Receiver phone number:
-<%= @delivery.receiver_phone_number %> </p>
-<% end %>
-
-<p> <%= link_to "Edit delivery information", edit_delivery_path%> </p>
-
-
-<p> Buyer Information </p>
-<p> Buyer name:
-<%= @user.name %> </p>
-<p> Buyer phone number:
-<%= @user.phone_number %> </p>
-
-<p><%= link_to "Edit buyer information", edit_user_path(redirect: order_verification_path) %></p>
-
-</div>
-</div>
-</div>
-
-<p> <%= button_to 'Confirm the order', order_confirm_path, method: :post, class: 'btn bg-success text-black' %> </p>
-
-
 
 

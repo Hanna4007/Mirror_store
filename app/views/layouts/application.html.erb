@@ -17,7 +17,48 @@
   </head>
 
    <body>
-    <div class="container-fluid"> 
+
+<nav class="navbar navbar-expand-lg navbar-light bg-info-subtle border border-info sticky-top">
+  <div class="container-fluid bg-info-subtle p-2 col-1 d-flex justify-content-center">
+    <div class="navbar-brand"><%= link_to "Mirrors", company_information_path, class: "nav-link" %></div>
+  </div>
+  <div class="container-fluid bg-info border border-info rounded-left p-2 d-flex justify-content-between align-items-center">
+    <ul class="navbar-nav">
+      <li class="nav-item"> <%= link_to "All mirrors", mirrors_path, class: "nav-link" %> </li> 
+      <li class="nav-item"> <%= link_to "Delivery information", delivery_information_path, class: "nav-link" %> </li> 
+      <li class="nav-item"> <%= link_to "Contacts", contact_information_path, class: "nav-link" %> </li> 
+      <% if current_user.present? %>
+        <% if current_user.admin? %>
+          <li class="nav-item"> <%= link_to "New mirror", new_admin_mirror_path, class: "nav-link" %> </li> 
+          <li class="nav-item"> <%= link_to "Users", admin_users_path, class: "nav-link" %> </li>
+          <li class="nav-item"> <%= link_to "New user", new_admin_user_path, class: "nav-link" %> </li>
+          <li class="nav-item"> <%= link_to "Orders", admin_order_index_path, class: "nav-link" %> </li> 
+          <li class="nav-item"> <%= link_to "Edit information", edit_admin_informations_path, class: "nav-link" %> </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul class="navbar-nav">
+    <% if current_user.present? %>
+      
+      <li class="nav-item"><%= link_to "Cart", order_path, class: "nav-link" %> </li> 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= "#{current_user.name}" %>
+          </a>
+          <ul class="dropdown-menu border border-info">
+            <li> <%= link_to "Log out", session_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'dropdown-item' %></li>
+            <li><%= link_to "Edit profile", edit_user_path, class: 'dropdown-item' %></li>
+            <li><%= link_to "Your orders", orders_path, class: 'dropdown-item' %></li>
+          </ul>
+        </li>
+        <% else %>
+    <li class="nav-item"><%= link_to "Sign up", new_user_path, class: "nav-link" %> </li> 
+    <li class="nav-item"><%= link_to "Log in", new_session_path, class: "nav-link" %> </li> 
+     <% end %>
+     </ul>
+  </div>
+</nav>
+
 
     <% if flash[:success].present? %>
      <div class="alert alert-success"><%= flash[:success]%></div>

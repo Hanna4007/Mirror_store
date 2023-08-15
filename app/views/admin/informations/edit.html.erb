@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <%= form_with(model: @information, url: admin_informations_path(@information), method: :patch) do |form| %>  
+    <div class="card border border-info rounded-0 mt-2">
+      <div class="card-body">
+        <div class="field">
+          <p class="fs-4 mt-2"><%= form.label :delivery_information %></p>
+          <%= form.rich_text_area :delivery_information %>
+        </div>
+      </div>
+    </div>
+    <div class="card border border-info rounded-0 mt-2">
+      <div class="card-body">
+        <div class="field">
+          <p class="fs-4 mt-2"><%= form.label :company_information %></p>
+          <%= form.rich_text_area :company_information %>
+        </div>
+      </div>
+    </div>
+    <div class="card border border-info rounded-0 mt-2">
+      <div class="card-body">
+        <div class="field">
+          <p class="fs-4 mt-2"><%= form.label :contact_information %></p>
+          <%= form.rich_text_area :contact_information %>
+        </div>
+      </div>
+    </div>
+    <div class="card border border-info rounded-0 mt-2">
+      <div class="card-body">
+        <div class="field">
+          <p class="fs-4 mt-2"><%= form.label :contact_image %></p>
+          <p><label for="mirror_mirror_images" class="btn bg-info rounded-0">
+            Add image
+            <%= form.file_field :mirror_images, multiple: true, include_hidden: false, style: 'display: none;' %>
+          </label></p>
+        </div>
+      </div>
+    </div>  
+    <p class="mt-2"><%= form.submit "Update", class: 'btn bg-info rounded-0'%></p>
+  <% end %>
+</div>
+ 

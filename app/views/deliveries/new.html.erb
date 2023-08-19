@@ -2,7 +2,7 @@
   <p class="fs-4">Delivery information</p>
 
   
-  <%= form_with model: [@order, @order.build_delivery], url: create_delivery_path do |form| %>
+  <%= form_with model: [@order, @order.build_delivery], url: delivery_path do |form| %>
     <div class="row">
       <div class="col-md-6">
         <p> <%= form.label :post %> 

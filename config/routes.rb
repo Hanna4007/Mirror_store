@@ -2,25 +2,20 @@ Rails.application.routes.draw do
    
   root "mirrors#index"
    
-  resources :mirrors, only: %i[show index]
-
+  resources :mirrors, only: %i[show index] do
+    resource :mirror_calculations, only: %i[show update]
+  end
+   
   resources :order_items
   
-  get '/mirrors/:id/calculation', to: 'mirror_calculations#count', as: 'calculation'
-  patch '/mirrors/:id/calculation', to: 'mirror_calculations#count_assign', as: 'patch_calculation'
-  
-  get '/order', to: 'order#show', as: 'order'
+  resources :orders, only: %i[index show]
+   
+  get '/order', to: 'orders#show_current_order', as: 'show_current_order'
+  get 'order/order_verification', to: 'orders#order_verification', as: 'order_verification' 
+  post 'order/order_confirm', to: 'orders#order_confirm', as: 'order_confirm' 
 
-  get 'order/delivery/new', to: 'deliveries#new', as: 'new_delivery'
-  post 'order/delivery', to: 'deliveries#create', as: 'create_delivery'
-  get 'order/delivery/edit', to: 'deliveries#edit', as: 'edit_delivery'
-  patch 'order/delivery', to: 'deliveries#update', as: 'update_delivery'
-  
-  get 'order/order_verification', to: 'order#order_verification', as: 'order_verification' 
-  post 'order/order_confirm', to: 'order#order_confirm', as: 'order_confirm' 
-  get '/orders', to: 'order#index', as: 'orders'
-  get 'order/:id', to: 'order#show_order', as: 'show_order' 
-  
+  resource :delivery, only: %i[new create edit update], path: '/order/delivery'
+    
   resources :users, only: %i[new create]
   resource :user, only: %i[edit update]
   resource :session, only: %i[new create destroy]

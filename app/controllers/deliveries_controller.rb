@@ -10,7 +10,7 @@ class DeliveriesController < ApplicationController
         redirect_to mirrors_path
         flash[:warning] = 'Your cart is empty. Please add items to your cart before proceeding.'
       else
-      @delivery = @order.build_delivery  
+        @delivery = @order.build_delivery  
     end
   end
   

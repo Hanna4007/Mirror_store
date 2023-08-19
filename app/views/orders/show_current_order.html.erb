@@ -14,7 +14,7 @@
                   <%end%>
                 </div>
 
-                <div class="col-md-4 mt-2" >
+                <div class="col-md-3 mt-2" >
                   <p> <%= order_item.mirror.name %> </p>
 
                   <%= form_with model: order_item do |form| %>
@@ -42,7 +42,7 @@
 
                 </div>
 
-                <div class="col-md-3 mt-2" >
+                <div class="col-md-4 mt-2" >
                   <%= form_with model: order_item do |form| %>
                     <p><%= form.hidden_field :mirror_id, value: order_item.mirror.id %> 
                     Quantity <%= form.number_field :quantity, in: 1.0..20.0, step: 1, value: order_item.quantity %>
@@ -81,12 +81,4 @@
       </div>
     </div>
   <% end %>
-</div>
-
-
-
-
-
-
-
-                                      
+</div>    

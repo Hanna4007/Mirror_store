@@ -1,4 +1,4 @@
-class OrderController < ApplicationController
+class OrdersController < ApplicationController
   include Authentication
   before_action :no_authentication
   
@@ -9,14 +9,14 @@ class OrderController < ApplicationController
   end
 
   def show
-    @order_items = current_order.order_items.includes(mirror: [mirror_images_attachments: :blob])
-    @delivery = current_order.delivery
-  end
-
-  def show_order
     @order = Order.includes(:order_items => :mirror).find(params[:id])
     @order_items = @order.order_items
     @delivery = @order.delivery
+  end
+
+  def show_current_order
+    @order_items = current_order.order_items.includes(mirror: [mirror_images_attachments: :blob])
+    @delivery = current_order.delivery
   end
 
   def order_verification

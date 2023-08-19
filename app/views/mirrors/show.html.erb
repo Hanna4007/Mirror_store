@@ -18,7 +18,7 @@
           <p class="fs-4"> <%= @mirror.name %> </p>
           <p class="fw-bold"> Price from
             <%= (@mirror.price_square*0.25).round %>$</p>
-          <p><%= link_to "Price calculator", patch_calculation_path(@mirror), class: 'btn bg-info rounded-0' %></p>
+          <p><%= link_to "Price calculator", mirror_mirror_calculations_path(@mirror), class: 'btn bg-info rounded-0' %></p>
         </div>
         <div class="col-md-6">
           <% if current_user.present? %>

@@ -2,7 +2,7 @@
 
 <p class="fs-4">Price calculator for <%= @mirror.name%></p>
 
-<%= form_with model: @mirror, url: patch_calculation_path(@mirror) do |form| %>
+<%= form_with model: @mirror, url: mirror_mirror_calculations_path(@mirror) do |form| %>
   <p>
     <%= form.label :height %> 
     <%= form.select :height, [50, 80, 100] %> 

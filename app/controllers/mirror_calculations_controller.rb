@@ -1,29 +1,17 @@
 class MirrorCalculationsController < ApplicationController
     
-  def count
-    @mirror = Mirror.find(params[:id])
+  def show
+    #@mirror = Mirror.find(params[:id])
+    @mirror = Mirror.find(params[:mirror_id])
   end
 
-  def count_assign
-    @mirror = Mirror.find(params[:id])
+  def update
+    #@mirror = Mirror.find(params[:id])
+    @mirror = Mirror.find(params[:mirror_id])
     @mirror.assign_attributes(mirror_params)
   end
     
-    
-    
-    #def count
-
-       # @mirror = Mirror.find(params[:id])
-       # if @mirror.assign_attributes(mirror_params)
-       #   render '/mirrors/:id/calculation'
-          #redirect_to mirrors_path
-       #   else
-          #render '/mirrors/:id/calculation'
-        #  redirect_to mirrors_path
-       # end
-   # end
-
-    private
+  private
     def mirror_params
         params.require(:mirror).permit(:height, :width, :glass_thickness, :light, :heater)
     end

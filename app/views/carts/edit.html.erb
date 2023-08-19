@@ -34,7 +34,7 @@
       <p class="fw-bold text-end mx-5 my-3">Total price <%= current_order.total_price %>$</p>
                
       <div class="d-flex justify-content-end mx-5">
-        <%= link_to "Edit the order", show_current_order_path, class: 'btn bg-info rounded-0'%>
+        <%= link_to "Edit the order", carts_path, class: 'btn bg-info rounded-0'%>
       </div>
     </div>
   </div>
@@ -76,15 +76,15 @@
     <div class="col-md-6">
       <p class="fs-4"> Buyer Information </p>
       <p> Buyer name:
-      <%= @user.name %> </p>
+      <%= @current_user.name %> </p>
       <p> Buyer phone number:
-      <%= @user.phone_number %> </p>
+      <%= @current_user.phone_number %> </p>
 
-      <p><%= link_to "Edit buyer information", edit_user_path(redirect: order_verification_path), class: 'btn bg-info rounded-0' %></p>
+      <p><%= link_to "Edit buyer information", edit_user_path(redirect: edit_carts_path), class: 'btn bg-info rounded-0' %></p>
     </div>
   </div>
  
-    <p> <%= button_to 'Confirm the order', order_confirm_path, method: :post, class: 'btn btn-dark rounded-0' %> </p>
+    <p> <%= button_to 'Confirm the order', carts_path, method: :patch, class: 'btn btn-dark rounded-0' %> </p>
 </div>
 
 

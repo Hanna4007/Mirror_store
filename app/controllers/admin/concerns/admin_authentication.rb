@@ -4,7 +4,7 @@ module Admin::Concerns::AdminAuthentication
          
         def check_admin
           unless current_user.admin?
-            flash[:warning] = 'You don`t have permission to access this page'
+            flash[:warning] = I18n.t("no_access")
             redirect_to mirrors_path
           end
         end

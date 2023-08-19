@@ -5,21 +5,18 @@ class DeliveriesController < ApplicationController
   before_action :no_authentication
   
   def new
-      current_order
-      if @order.order_items.empty?
-        redirect_to mirrors_path
-        flash[:warning] = 'Your cart is empty. Please add items to your cart before proceeding.'
-      else
-        @delivery = @order.build_delivery  
+    if current_order.order_items.empty?
+      redirect_to mirrors_path
+      flash[:warning] = I18n.t("cart_is_empty")
+    else
+      @delivery = current_order.build_delivery  
     end
   end
   
  def create
-    current_order
-    @delivery = @order.create_delivery(deliveries_params)
-   
+    @delivery = current_order.create_delivery(deliveries_params)
     if @delivery.valid?
-      redirect_to order_verification_path 
+      redirect_to edit_carts_path 
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,9 +28,8 @@ class DeliveriesController < ApplicationController
 
   def update
     @delivery = current_order.delivery
-    @delivery.update(deliveries_params)
-    if @delivery.valid?
-      redirect_to order_verification_path 
+    if @delivery.update(deliveries_params)
+      redirect_to edit_carts_path 
     else
       render :edit, status: :unprocessable_entity
     end

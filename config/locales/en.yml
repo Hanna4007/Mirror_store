@@ -31,3 +31,15 @@
 
 en:
   hello: "Hello world"
+  no_access: "You don`t have permission to access this page"
+  mirror_created: "Mirror created"
+  mirror_updated: "Mirror updated"
+  mirror_deleted: "Mirror deleted"
+  order_has_been_paid: "The order has already been paid. It cannot be changed"
+  you_are_already_signed_in: "You are already signed in!"
+  you_are_not_signed_in: "You are not signed in!"
+  cart_is_empty: "Your cart is empty. Please add items to your cart before proceeding"
+  thank_you_for_your_order: "Thank you for your order. We will contact you shortly"
+  welcome_user: "Welcome, %{name}" 
+  your_profile_was_updated: "Your profile was successfully updated"
+  

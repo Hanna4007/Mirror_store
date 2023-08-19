@@ -13,7 +13,7 @@ class Admin::MirrorsController < ApplicationController
     @mirror = Mirror.new(mirror_params)
 
     if @mirror.save
-      flash[:success] = 'Mirror created'
+      flash[:success] = I18n.t("mirror_created")
       redirect_to mirrors_path
     else
       render :new, status: :unprocessable_entity
@@ -28,7 +28,7 @@ class Admin::MirrorsController < ApplicationController
     @mirror = Mirror.find(params[:id])
 
     if @mirror.update(mirror_params)
-      flash[:success] = 'Mirror updated'
+      flash[:success] = I18n.t("mirror_updated")
       redirect_to mirror_path(@mirror)
     else
       render :edit, status: :unprocessable_entity
@@ -38,7 +38,7 @@ class Admin::MirrorsController < ApplicationController
   def destroy
     @mirror = Mirror.find(params[:id])
     @mirror.destroy
-    flash[:success] = 'Mirror deleted'
+    flash[:success] = I18n.t("mirror_deleted")
     redirect_to mirrors_path, status: :see_other
   end
 

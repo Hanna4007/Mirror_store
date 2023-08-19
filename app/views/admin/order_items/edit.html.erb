@@ -40,7 +40,7 @@
             <p>
               <%= order_item_form.hidden_field :mirror_id, value: @order_item.mirror.id %> 
               Quantity <%= order_item_form.number_field :quantity, value: @order_item.quantity %>
-              <%= order_item_form.submit "Update", class: 'btn bg-info rounded-0' %>
+               <%= order_item_form.submit "Update", class: 'btn bg-info rounded-0' %>
             </p>
           <% end %>
           <p> Unit price <%= @order_item.unit_price %> $ </p>

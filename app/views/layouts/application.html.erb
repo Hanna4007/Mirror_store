@@ -40,7 +40,7 @@
     <ul class="navbar-nav">
     <% if current_user.present? %>
       
-      <li class="nav-item"><%= link_to "Cart", show_current_order_path, class: "nav-link" %> </li> 
+      <li class="nav-item"><%= link_to "Cart", carts_path, class: "nav-link" %> </li> 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle px-5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= "#{current_user.name}" %>

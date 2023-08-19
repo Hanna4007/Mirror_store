@@ -37,10 +37,10 @@
           <p><%= form.radio_button :order, '', checked: params[:order] == '', onchange: 'this.form.submit();' %> 
           <%= form.label :order, 'Recommended'%></p>
      
-          <p><%= form.radio_button :order, 'price-desc', checked: params[:order] == 'price-desc', onchange: 'this.form.submit();' %> 
+          <p><%= form.radio_button :order, 'price_square-desc', checked: params[:order] == 'price_square-desc', onchange: 'this.form.submit();' %> 
           <%= form.label :order, 'Price (High-Low)'%></p>
 
-          <p><%= form.radio_button :order, 'price-asc', checked: params[:order] == 'price-asc', onchange: 'this.form.submit();' %> 
+          <p><%= form.radio_button :order, 'price_square-asc', checked: params[:order] == 'price_square-asc', onchange: 'this.form.submit();' %> 
           <%= form.label :order, 'Price (Low-High)'%></p>
         </div>
 

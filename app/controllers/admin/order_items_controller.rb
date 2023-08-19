@@ -38,7 +38,7 @@ private
   def check_status
     @order = Order.find(params[:order_id])
     unless ['in progress', 'confirmed', 'waiting for payment'].include?(@order.status) 
-      flash[:warning] = 'The order has already been paid. It cannot be changed.'
+      flash[:warning] = I18n.t("order_has_been_paid")
       redirect_to edit_admin_order_path(@order)
     end
   end

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <% if current_order.order_items.size == 0 %>
+  <% if @order_items.size == 0 %>
     <p class="fs-4"> Your cart is empty </p>
   <% else %>
     <div class="row">
@@ -72,10 +72,10 @@
         <p class="fw-bold text-end mx-5 my-3">Total price <%= current_order.total_price %> $ </p>
 
         <div class="d-flex justify-content-end mx-5">
-          <% if current_order.order_items.size >= 1 && !@delivery.present?%>
-            <p> <%= link_to "Place an order", new_delivery_path, class: 'btn btn-dark rounded-0'%> </p>
-          <% elsif current_order.order_items.size >= 1 && @delivery.present?%>
-            <p> <%= link_to "Place an order", order_verification_path, class: 'btn btn-dark rounded-0'%> </p>
+          <% if @delivery.present?%>
+            <p> <%= link_to "Place an order", edit_carts_path, class: 'btn btn-dark rounded-0'%> </p>
+          <% else%>
+             <p> <%= link_to "Place an order", new_delivery_path, class: 'btn btn-dark rounded-0'%> </p>
           <% end %>
         </div>
       </div>

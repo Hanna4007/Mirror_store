@@ -1,4 +1,6 @@
 class Mirror < ApplicationRecord
+  include MirrorPriceCalculation
+
   has_many_attached :mirror_images
   has_many :order_items
   has_rich_text :description
@@ -31,7 +33,7 @@ class Mirror < ApplicationRecord
   scope :filter_installation, ->(value) { where(installation: value) unless value.blank? }
   scope :filter_lamp, ->(value) { where(lamp: value) unless value.blank? }
   scope :with_field_order, ->(field = nil, order = nil) {
-    allowed_fields = ['price']
+    allowed_fields = ['price_square']
     field = nil if allowed_fields.exclude?(field)
     
     direction = order == 'desc' ? 'desc' : 'asc'
@@ -39,30 +41,5 @@ class Mirror < ApplicationRecord
     order(field => direction) if field
  }
 
- 
-
-
-
-  def calculated_price
-    if height == 50
-      unit_price=(price_square*height*width*0.0001).round
-    elsif height==80
-      unit_price=(price_square*height*width*0.0001*1.15).round
-    else
-      unit_price=(price_square*height*width*0.0001*1.3).round
-    end
-
-    if glass_thickness==6
-      unit_price+=635
-    else
-      unit_price
-    end
-
-    if heater==true
-      unit_price+=1110
-    else
-      unit_price
-    end 
-  end
- 
+  
 end

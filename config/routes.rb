@@ -9,10 +9,14 @@ Rails.application.routes.draw do
   resources :order_items
   
   resources :orders, only: %i[index show]
+
+  resource :carts, only: %i[show edit update]
+
+
    
-  get '/order', to: 'orders#show_current_order', as: 'show_current_order'
-  get 'order/order_verification', to: 'orders#order_verification', as: 'order_verification' 
-  post 'order/order_confirm', to: 'orders#order_confirm', as: 'order_confirm' 
+  #get '/order', to: 'orders#show_current_order', as: 'show_current_order'
+  #get 'order/order_verification', to: 'orders#order_verification', as: 'order_verification' 
+  #post 'order/order_confirm', to: 'orders#order_confirm', as: 'order_confirm' 
 
   resource :delivery, only: %i[new create edit update], path: '/order/delivery'
     

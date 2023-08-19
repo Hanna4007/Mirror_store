@@ -1,12 +1,10 @@
 class MirrorCalculationsController < ApplicationController
     
   def show
-    #@mirror = Mirror.find(params[:id])
     @mirror = Mirror.find(params[:mirror_id])
   end
 
   def update
-    #@mirror = Mirror.find(params[:id])
     @mirror = Mirror.find(params[:mirror_id])
     @mirror.assign_attributes(mirror_params)
   end

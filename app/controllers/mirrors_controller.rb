@@ -2,7 +2,7 @@ class MirrorsController < ApplicationController
 
     def index
 
-      order = CGI.unescape(params[:order]) if params[:order]
+      #order = CGI.unescape(params[:order]) if params[:order]
       @mirrors = Mirror.includes(mirror_images_attachments: :blob)
                          .filter_installation(params[:installation])
                          .filter_lamp(params[:lamp])

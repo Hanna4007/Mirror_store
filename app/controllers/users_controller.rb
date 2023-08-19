@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :no_authentication, only: %i[edit update]
 
     def new
+        #@current_user = User.new
         @user = User.new
     end    
 
@@ -14,24 +15,21 @@ class UsersController < ApplicationController
        session[:user_id] = @user.id 
             
         if @user.valid?
-          flash[:success] = "Welcome, #{@user.name}"
+          flash[:success] = I18n.t("welcome_user", name: @user.name)
           redirect_to mirrors_path
         else
           render :new, status: :unprocessable_entity
         end
       end
 
-     def edit
-    @user = User.find(session[:user_id])
-   end    
+  def edit   
+  end    
 
 
 def update
-   @user = User.find(session[:user_id])   
-    @user.update(user_params)
-        
-    if @user.valid?
-      flash[:success] = "Your profile was successfully updated"
+    
+    if current_user.update(user_params)
+      flash[:success] = I18n.t("your_profile_was_updated")
       redirect_to(params[:redirect] || mirrors_path)
     else
       render :edit, status: :unprocessable_entity

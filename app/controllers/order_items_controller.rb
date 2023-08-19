@@ -5,37 +5,33 @@ class OrderItemsController < ApplicationController
     before_action :no_authentication, exept: :create
 
     def create
-        @order = current_order
-        @order_item = @order.order_items.new(order_items_params)
+        @order_item = current_order.order_items.new(order_items_params)
         @order_item.save
-        session[:order_id]=@order.id  
+        session[:order_id]=current_order.id  
     end
 
     def edit
-        @order = current_order
-        @order_item = @order.order_items.find(params[:id])
+        @order_item = current_order.order_items.find(params[:id])
     end
 
     def update
-        @order = current_order
-        @order_item = @order.order_items.find(params[:id])
-        @delivery = @order.delivery
+        @order_item = current_order.order_items.find(params[:id])
+        @delivery = current_order.delivery
 
         @order_item.update(order_items_params)
         if @delivery.present? 
-          redirect_to order_verification_path
+          redirect_to edit_carts_path
         else 
-        redirect_to order_path
+          redirect_to carts_path
         end
           
     end
 
 
     def destroy
-        @order = current_order
-        @order_item = @order.order_items.find(params[:id])
+        @order_item = current_order.order_items.find(params[:id])
         @order_item.destroy
-        redirect_to order_path, status: :see_other
+        redirect_to carts_path, status: :see_other
     end
 
 

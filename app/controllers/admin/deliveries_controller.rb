@@ -1,27 +1,33 @@
-class Admin::DeliveriesController < ApplicationController
-  include Authentication
-  include Admin::Concerns::AdminAuthentication
-  
-  before_action :no_authentication
-  before_action :check_admin
-  
-  def edit
-    @order = Order.find(params[:order_id])
-    @delivery = @order.delivery
-  end
+# frozen_string_literal: true
 
-  def update
-    @order = Order.find(params[:order_id])
-    @delivery = @order.delivery
-    if @delivery.update(deliveries_params)
-       redirect_to edit_admin_order_path(@order)
-    else
-      render :edit, status: :unprocessable_entity
+module Admin
+  class DeliveriesController < ApplicationController
+    include Authentication
+    include Admin::Concerns::AdminAuthentication
+
+    before_action :no_authentication
+    before_action :check_admin
+
+    def edit
+      @order = Order.find(params[:order_id])
+      @delivery = @order.delivery
     end
-  end
 
-  private
-  def deliveries_params
-    params.require(:delivery).permit(:delivery_type, :post, :receiver_name, :receiver_surname, :receiver_phone_number, :city, :region, :receiver_address, :post_office_number)
+    def update
+      @order = Order.find(params[:order_id])
+      @delivery = @order.delivery
+      if @delivery.update(deliveries_params)
+        redirect_to edit_admin_order_path(@order)
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
+    private
+
+    def deliveries_params
+      params.require(:delivery).permit(:delivery_type, :post, :receiver_name, :receiver_surname, :receiver_phone_number,
+                                       :city, :region, :receiver_address, :post_office_number)
+    end
   end
 end

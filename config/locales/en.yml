@@ -42,4 +42,5 @@ en:
   thank_you_for_your_order: "Thank you for your order. We will contact you shortly"
   welcome_user: "Welcome, %{name}" 
   your_profile_was_updated: "Your profile was successfully updated"
+  invalid_email_or_password: "Invalid email or password"
   

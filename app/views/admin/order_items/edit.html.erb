@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
   <p class="fs-4 mt-2">Edit the order item</p>
   <div class="card border border-info rounded-0">
@@ -6,49 +7,51 @@
         <div class="col-md-4 mt-2">
           <% if @order_item.mirror.mirror_images.attached?%>
             <%= image_tag @order_item.mirror.mirror_images.first.variant(resize_to_limit: [218, 185]).processed  %>
-          <% end%>
+          <% end%>  
         </div>
-        <div class="col-md-4 mt-2">
-          <p> <%= @order_item.mirror.name %> </p>
+
+        <div class="col-md-4 mt-2">     
+          <p> <%= @order_item.mirror.name %> </p> 
+
           <%= form_with(model: @order_item, url: admin_order_order_item_path(@order, @order_item), method: :patch) do |order_item_form| %>
             <p>
               <%= order_item_form.label :height %>
               <%= order_item_form.select :height, [50, 80, 100], {}, { onchange: 'this.form.submit();' } %>
               <%= order_item_form.submit type: :hidden %>
             </p>
-            <p>
+            <p> 
               <%= order_item_form.label :width %>
               <%= order_item_form.select :width, [50, 80], {}, { onchange: 'this.form.submit();' }  %> 
               <%= order_item_form.submit type: :hidden %>
-            </p>
-            <p>
+            </p> 
+            <p> 
               <%= order_item_form.label :glass_thickness %>
               <%= order_item_form.select :glass_thickness, [4, 6], {}, { onchange: 'this.form.submit();' } %>
               <%= order_item_form.submit type: :hidden %>
             </p>
-            <p>
+            <p>    
               <%= order_item_form.label :light %> 
               <%= order_item_form.select :light, [ 'warm', 'neutral', 'cold' ], {}, { onchange: 'this.form.submit();' } %>
             </p>
-            <p>
+            <p>              
               <%= order_item_form.label :heater %>
               <%= order_item_form.check_box :heater, { onchange: 'this.form.submit();' } %> 
               <%= order_item_form.submit type: :hidden %>
             </p>
+          <% end %>    
         </div>
+
         <div class="col-md-4 mt-2">
-            <p>
+          <%= form_with(model: @order_item, url: admin_order_order_item_path(@order, @order_item), method: :patch) do |order_item_form| %>     
+            <p>      
               <%= order_item_form.hidden_field :mirror_id, value: @order_item.mirror.id %> 
               Quantity <%= order_item_form.number_field :quantity, value: @order_item.quantity %>
-               <%= order_item_form.submit "Update", class: 'btn bg-info rounded-0' %>
-            </p>
+              <%= order_item_form.submit "Update", class: 'btn bg-info rounded-0' %>
+            </p>    
           <% end %>
-          <p> Unit price <%= @order_item.unit_price %> $ </p>
+           <p> Unit price <%= @order_item.unit_price %> $ </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-

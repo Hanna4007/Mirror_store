@@ -1,31 +1,42 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
-    include Authentication
+  include Authentication
 
   before_action :authentication, only: %i[new create]
   before_action :no_authentication, only: %i[destroy]
 
+  def new; end
 
-    def new
+  def create
+    user = create_session
+    if user.present?
+      successful_login(user)
+    else
+      unsuccessful_login
     end
+  end
 
-    def create
-        user_params = params.require(:session)
-        user = User.find_by(email: user_params[:email])&.authenticate(user_params[:password]) 
+  def destroy
+    session.delete(:order_id)
+    session.delete(:user_id)
+    redirect_to mirrors_path
+  end
 
-        if user.present?
-        session[:user_id] = user.id 
-        flash[:success] = "Welcome, #{user.name}"
-        redirect_to mirrors_path
-         else
-        render :new
-        flash.now[:warning] = 'Invalid email or password'
-        end  
-    end
+  private
 
-    def destroy
-        session.delete(:order_id)
-        session.delete(:user_id)
-        redirect_to mirrors_path
-    end
+  def create_session
+    user_params = params.require(:session)
+    User.find_by(email: user_params[:email])&.authenticate(user_params[:password])
+  end
 
+  def successful_login(user)
+    session[:user_id] = user.id
+    redirect_to mirrors_path, flash: { success: I18n.t('welcome_user', name: user.name) }
+  end
+
+  def unsuccessful_login
+    flash.now[:warning] = I18n.t('invalid_email_or_password')
+    render :new
+  end
 end

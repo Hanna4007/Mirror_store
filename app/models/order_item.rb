@@ -11,12 +11,12 @@ class OrderItem < ApplicationRecord
   private
 
   def update_total_price_item
-    update_attributes if new_record?
+    update_attributes_from_mirror if new_record?
     update_unit_price
     update_total_price
   end
 
-  def update_attributes # rubocop:disable Metrics/AbcSize
+  def update_attributes_from_mirror # rubocop:disable Metrics/AbcSize
     self.price_square = mirror.price_square
     self.height = mirror.height
     self.width = mirror.width

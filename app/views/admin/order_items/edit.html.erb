@@ -12,8 +12,7 @@
 
         <div class="col-md-4 mt-2">     
           <p> <%= @order_item.mirror.name %> </p> 
-
-          <%= form_with(model: @order_item, url: admin_order_order_item_path(@order, @order_item), method: :patch) do |order_item_form| %>
+          <%= form_with model: [:admin, @order, @order_item] do |order_item_form| %> 
             <p>
               <%= order_item_form.label :height %>
               <%= order_item_form.select :height, [50, 80, 100], {}, { onchange: 'this.form.submit();' } %>
@@ -42,7 +41,7 @@
         </div>
 
         <div class="col-md-4 mt-2">
-          <%= form_with(model: @order_item, url: admin_order_order_item_path(@order, @order_item), method: :patch) do |order_item_form| %>     
+          <%= form_with model: [:admin, @order, @order_item] do |order_item_form| %>     
             <p>      
               <%= order_item_form.hidden_field :mirror_id, value: @order_item.mirror.id %> 
               Quantity <%= order_item_form.number_field :quantity, value: @order_item.quantity %>

@@ -3,7 +3,7 @@
     <div class="card-body px-5">
       <div class="row">
         <div class="col-md-4">
-          <%= form_with(model: @order, url: admin_order_path(@order), method: :patch) do |form| %>
+          <%= form_with model: [:admin, @order] do |form| %>
             <p>
               <%= form.label :status %>
               <%= form.select :status, ['in progress', 'confirmed', 'waiting for payment', 'paid', 'delivered', 'canceled'], {}, { onchange: 'this.form.submit();'}%>

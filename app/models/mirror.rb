@@ -32,8 +32,25 @@ class Mirror < ApplicationRecord
 
   validates :price_square, presence: true
 
-  scope :filter_installation, ->(value) { where(installation: value) unless value.blank? }
-  scope :filter_lamp, ->(value) { where(lamp: value) unless value.blank? }
+  scope :filter_installation, ->(value) {
+    if value == 'wall'
+      where(installation: 'wall')
+    elsif value == 'table'
+      where(installation: 'table')
+    else
+      all
+    end
+  }
+ 
+  scope :filter_lamp, ->(value) {
+    if value == 'built-in'
+      where(lamp: 'built-in')
+    elsif value == 'outside'
+      where(lamp: 'outside')
+    else
+      all
+    end
+  }
   scope :with_field_order, lambda { |field = nil, order = nil|
                              allowed_fields = ['price_square']
                              field = nil if allowed_fields.exclude?(field)

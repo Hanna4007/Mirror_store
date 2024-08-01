@@ -1,7 +1,7 @@
 <div class="container mx-3">
   <p class="fs-4">Edit delivery information</p>
 
-  <%= form_with(model: @delivery, url: admin_order_delivery_path(@order), method: :patch) do |form| %>
+  <%= form_with model: [:admin, @order, @delivery] do |form| %>
     <div class="row">
       <div class="col-md-6">
         <p> <%= form.label :post %> 

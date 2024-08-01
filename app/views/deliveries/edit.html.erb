@@ -1,7 +1,7 @@
 <div class="container mx-3">
   <p class="fs-4">Edit delivery information</p>
   
-  <%= form_with model: [@current_order, @current_order.delivery], url: delivery_path do |form| %>
+  <%= form_with model: @delivery do |form| %>
     <div class="row">
       <div class="col-md-6">
         <p> <%= form.label :post %> 

@@ -8,14 +8,14 @@ class Delivery < ApplicationRecord
   validates :delivery_type, inclusion: { in: VALID_DELIVERY_TYPE }
 
   validates :post, presence: true
-  VALID_DELIVERY_TYPE = ['Nova post', 'Ukrpost'].freeze
-  validates :post, inclusion: { in: VALID_DELIVERY_TYPE }
+  VALID_POST_TYPE = ['Nova post', 'Ukrpost'].freeze
+  validates :post, inclusion: { in: VALID_POST_TYPE }
 
   validates :receiver_name, presence: true, length: { minimum: 2, maximum: 40 }
 
   validates :receiver_surname, presence: true, length: { minimum: 2, maximum: 40 }
 
-  validates :receiver_phone_number, presence: true, length: { is: 13 }
+  validates :receiver_phone_number, presence: true, format: { with: /\A\+\d+\z/ }, length: { is: 13 }
 
   validates :city, presence: true, length: { minimum: 3, maximum: 20 }
 

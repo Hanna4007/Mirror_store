@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2 border border-info border-top-0 mt-2">
-      <%= form_with(model: @order, url: admin_order_index_path, method: 'get') do |form| %>
+     
+      <%= form_with(url: admin_order_index_path, method: 'get') do |form| %>
         <div class="border-bottom border-info">
           <p>Status</p>
 

@@ -9,7 +9,14 @@ class Order < ApplicationRecord
   VALID_STATUS = ['in progress', 'confirmed', 'waiting for payment', 'paid', 'delivered', 'canceled'].freeze
   validates :status, inclusion: { in: VALID_STATUS }
 
-  scope :filter_status, ->(value) { where(status: value) unless value.blank? }
+  scope :filter_status, ->(value) {
+  if ['in progress', 'confirmed', 'waiting for payment', 'paid', 'delivered', 'canceled'].include?(value)
+    where(status: value)
+  else
+    all
+  end
+}
+
   scope :with_field_order, lambda { |field = nil, focus = nil|
                              allowed_fields = ['updated_at']
                              field = nil if allowed_fields.exclude?(field)
